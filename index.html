@@ -219,37 +219,37 @@
 
             <label>
               <input type="radio" name="skill" value="admin">
-              Admin / organizing
+              <span>Admin / organizing</span>
             </label>
 
             <label>
               <input type="radio" name="skill" value="customer">
-              Customer service
+              <span>Customer service</span>
             </label>
 
             <label>
               <input type="radio" name="skill" value="writing">
-              Writing / communication
+              <span>Writing / communication</span>
             </label>
 
             <label>
               <input type="radio" name="skill" value="sales">
-              Sales / marketing
+              <span>Sales / marketing</span>
             </label>
 
             <label>
               <input type="radio" name="skill" value="creative">
-              Design / creative work
+              <span>Design / creative work</span>
             </label>
 
             <label>
               <input type="radio" name="skill" value="teaching">
-              Teaching / coaching
+              <span>Teaching / coaching</span>
             </label>
 
             <label>
               <input type="radio" name="skill" value="tech">
-              Technology / AI
+              <span>Technology / AI</span>
             </label>
 
           </div>
@@ -265,32 +265,32 @@
 
             <label>
               <input type="radio" name="interest" value="people">
-              Working with people
+              <span>Working with people</span>
             </label>
 
             <label>
               <input type="radio" name="interest" value="behind">
-              Working behind the scenes
+              <span>Working behind the scenes</span>
             </label>
 
             <label>
               <input type="radio" name="interest" value="creative">
-              Creative work
+              <span>Creative work</span>
             </label>
 
             <label>
               <input type="radio" name="interest" value="business">
-              Online business
+              <span>Online business</span>
             </label>
 
             <label>
               <input type="radio" name="interest" value="teaching">
-              Teaching / helping others
+              <span>Teaching / helping others</span>
             </label>
 
             <label>
               <input type="radio" name="interest" value="technology">
-              Technology / AI
+              <span>Technology / AI</span>
             </label>
 
           </div>
@@ -306,22 +306,22 @@
 
             <label>
               <input type="radio" name="time" value="small">
-              1–5 hours per week
+              <span>1–5 hours per week</span>
             </label>
 
             <label>
               <input type="radio" name="time" value="medium">
-              5–10 hours per week
+              <span>5–10 hours per week</span>
             </label>
 
             <label>
               <input type="radio" name="time" value="large">
-              10–20 hours per week
+              <span>10–20 hours per week</span>
             </label>
 
             <label>
               <input type="radio" name="time" value="full">
-              20+ hours per week
+              <span>20+ hours per week</span>
             </label>
 
           </div>
@@ -337,27 +337,27 @@
 
             <label>
               <input type="radio" name="goal" value="income">
-              Earn extra income
+              <span>Earn extra income</span>
             </label>
 
             <label>
               <input type="radio" name="goal" value="remote">
-              Find remote work
+              <span>Find remote work</span>
             </label>
 
             <label>
               <input type="radio" name="goal" value="freelance">
-              Build a freelance career
+              <span>Build a freelance career</span>
             </label>
 
             <label>
               <input type="radio" name="goal" value="business">
-              Start a small online business
+              <span>Start a small online business</span>
             </label>
 
             <label>
               <input type="radio" name="goal" value="learn">
-              Learn a new skill
+              <span>Learn a new skill</span>
             </label>
 
           </div>
@@ -373,39 +373,53 @@
 
             <label>
               <input type="radio" name="startingPoint" value="experienced">
-              I already have skills I can sell
+              <span>I already have skills I can sell</span>
             </label>
 
             <label>
               <input type="radio" name="startingPoint" value="experience">
-              I have experience but need direction
+              <span>I have experience but need direction</span>
             </label>
 
             <label>
               <input type="radio" name="startingPoint" value="beginner">
-              I am willing to learn from zero
+              <span>I am willing to learn from zero</span>
             </label>
 
             <label>
               <input type="radio" name="startingPoint" value="hobby">
-              I want to turn my hobby into income
+              <span>I want to turn my hobby into income</span>
             </label>
 
           </div>
 
 
-          <button
-            id="generateNiche"
-            class="primary-button"
-            type="button"
-          >
-            🔎 Show My Possible Niches
-          </button>
+          <!-- ASSESSMENT BUTTONS -->
+
+          <div class="assessment-actions">
+
+            <button
+              id="generateNiche"
+              class="primary-button"
+              type="button"
+            >
+              🔎 Show My Possible Niches
+            </button>
+
+            <button
+              id="clearAssessment"
+              class="secondary-button"
+              type="button"
+            >
+              Clear Answers
+            </button>
+
+          </div>
 
         </div>
 
 
-        <!-- RESULTS WILL APPEAR HERE -->
+        <!-- NICHE RESULTS -->
 
         <div
           id="nicheResults"
@@ -421,7 +435,7 @@
   </section>
 
 
-  <!-- CALCULATOR -->
+  <!-- RATE CALCULATOR -->
 
   <section
     class="calculator-section"
@@ -437,12 +451,12 @@
         </p>
 
         <h2>
-          Global currency & rate calculator
+          Global Currency & Rate Calculator
         </h2>
 
         <p>
-          Turn an hourly rate into daily, weekly,
-          monthly, and yearly estimates.
+          Enter your hourly rate, choose your currencies,
+          and see estimated earnings automatically.
         </p>
 
       </div>
@@ -452,6 +466,9 @@
 
         <div class="calculator-grid">
 
+
+          <!-- HOURLY RATE -->
+
           <label>
             Hourly rate
 
@@ -460,10 +477,12 @@
               type="number"
               min="0"
               step="0.01"
-              value="7.50"
+              placeholder="Example: 6.50"
             >
           </label>
 
+
+          <!-- STARTING CURRENCY -->
 
           <label>
             Starting currency
@@ -519,6 +538,8 @@
           </label>
 
 
+          <!-- TARGET CURRENCY -->
+
           <label>
             Target currency
 
@@ -573,6 +594,8 @@
           </label>
 
 
+          <!-- HOURS PER DAY -->
+
           <label>
             Hours per day
 
@@ -584,6 +607,8 @@
             >
           </label>
 
+
+          <!-- DAYS PER WEEK -->
 
           <label>
             Days per week
@@ -597,18 +622,7 @@
           </label>
 
 
-          <label>
-            Weeks per month
-
-            <input
-              id="weeksPerMonth"
-              type="number"
-              min="1"
-              step="0.01"
-              value="4.33"
-            >
-          </label>
-
+          <!-- WORKING MONTHS -->
 
           <label>
             Working months / year
@@ -625,22 +639,40 @@
         </div>
 
 
-        <button
-          id="calculateRate"
-          class="primary-button"
-          type="button"
-        >
-          Calculate
-        </button>
+        <!-- CALCULATOR BUTTONS -->
 
+        <div class="calculator-actions">
+
+          <button
+            id="calculateRate"
+            class="primary-button"
+            type="button"
+          >
+            Calculate
+          </button>
+
+          <button
+            id="clearCalculator"
+            class="secondary-button"
+            type="button"
+          >
+            Clear
+          </button>
+
+        </div>
+
+
+        <!-- CALCULATOR RESULTS -->
 
         <div
           id="calculatorResults"
           class="results-area"
         >
+
           <p class="results-placeholder">
-            Your estimated earnings will appear here.
+            Enter your hourly rate to see your estimated earnings.
           </p>
+
         </div>
 
       </div>
