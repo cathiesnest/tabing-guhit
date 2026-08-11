@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Tabing Guhit — Find a Sideline That Fits You</title>
+
+  <meta
+    name="description"
+    content="Tabing Guhit is a free guide that helps Filipinos discover possible sideline paths, understand their skills, and explore potential rates."
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <span class="brand-name">TABING GUHIT</span>
+      <span class="brand-tagline">A free sideline guide for Filipinos</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="container hero-content">
+
+      <p class="eyebrow">
+        Calm guidance. Practical next steps.
+      </p>
+
+      <h1>
+        Find a Sideline That Fits You.
+      </h1>
+
+      <p class="hero-text">
+        You don't have to know your niche yet.
+        Tell us what you know, what you can do, and how much time you have.
+        We'll help you discover possible sideline paths.
+      </p>
+
+      <button id="startAssessment" class="primary-button">
+        Start for Free
+      </button>
+
+      <p class="small-note">
+        No login required. Free to use.
+      </p>
+
+    </div>
+  </section>
+
+
+  <!-- DISCLAIMER -->
+
+  <section class="notice">
+    <div class="container">
+
+      <div class="notice-card">
+
+        <h2>
+          This tool does NOT guarantee you a job.
+        </h2>
+
+        <p>
+          Tabing Guhit is a free guide designed to help you discover
+          possible sideline niches, understand your strengths,
+          identify skills you may need to develop, and explore
+          possible next steps.
+        </p>
+
+        <p>
+          Your results do not guarantee employment, clients,
+          income, or job placement.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- FEATURES -->
+
+  <section class="features">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          Start where you are
+        </p>
+
+        <h2>
+          You don't need everything figured out.
+        </h2>
+
+        <p>
+          Use Tabing Guhit to understand your options
+          before you start applying.
+        </p>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+        <div class="feature-card">
+
+          <div class="feature-number">
+            01
+          </div>
+
+          <h3>
+            Discover your niche
+          </h3>
+
+          <p>
+            Answer simple questions about what you know,
+            what you can do, and the time you have available.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div class="feature-number">
+            02
+          </div>
+
+          <h3>
+            Explore sideline paths
+          </h3>
+
+          <p>
+            Identify realistic directions that may match
+            your existing experience and skills.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div class="feature-number">
+            03
+          </div>
+
+          <h3>
+            Understand your rate
+          </h3>
+
+          <p>
+            Estimate hourly, daily, weekly, monthly,
+            and yearly earnings in different currencies.
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- CALCULATOR -->
+
+  <section
+    class="calculator-section"
+    id="rateCalculator"
+  >
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          Know your rate
+        </p>
+
+        <h2>
+          Global currency & rate calculator
+        </h2>
+
+        <p>
+          Turn an hourly rate into daily, weekly,
+          monthly, and yearly estimates.
+        </p>
+
+      </div>
+
+
+      <div class="calculator-card">
+
+        <div class="calculator-grid">
+
+          <label>
+            Hourly rate
+
+            <input
+              id="hourlyRate"
+              type="number"
+              min="0"
+              step="0.01"
+              value="7.50"
+            >
+          </label>
+
+
+          <label>
+            Starting currency
+
+            <select id="fromCurrency">
+
+              <option value="USD">
+                USD — US Dollar
+              </option>
+
+              <option value="PHP">
+                PHP — Philippine Peso
+              </option>
+
+              <option value="CAD">
+                CAD — Canadian Dollar
+              </option>
+
+              <option value="AUD">
+                AUD — Australian Dollar
+              </option>
+
+              <option value="GBP">
+                GBP — British Pound
+              </option>
+
+              <option value="EUR">
+                EUR — Euro
+              </option>
+
+              <option value="SGD">
+                SGD — Singapore Dollar
+              </option>
+
+              <option value="AED">
+                AED — UAE Dirham
+              </option>
+
+              <option value="SAR">
+                SAR — Saudi Riyal
+              </option>
+
+              <option value="QAR">
+                QAR — Qatari Riyal
+              </option>
+
+              <option value="JPY">
+                JPY — Japanese Yen
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label>
+            Target currency
+
+            <select id="toCurrency">
+
+              <option value="PHP">
+                PHP — Philippine Peso
+              </option>
+
+              <option value="USD">
+                USD — US Dollar
+              </option>
+
+              <option value="CAD">
+                CAD — Canadian Dollar
+              </option>
+
+              <option value="AUD">
+                AUD — Australian Dollar
+              </option>
+
+              <option value="GBP">
+                GBP — British Pound
+              </option>
+
+              <option value="EUR">
+                EUR — Euro
+              </option>
+
+              <option value="SGD">
+                SGD — Singapore Dollar
+              </option>
+
+              <option value="AED">
+                AED — UAE Dirham
+              </option>
+
+              <option value="SAR">
+                SAR — Saudi Riyal
+              </option>
+
+              <option value="QAR">
+                QAR — Qatari Riyal
+              </option>
+
+              <option value="JPY">
+                JPY — Japanese Yen
+              </option>
+
+            </select>
+
+          </label>
+
+
+          <label>
+            Hours per day
+
+            <input
+              id="hoursPerDay"
+              type="number"
+              min="1"
+              value="8"
+            >
+          </label>
+
+
+          <label>
+            Days per week
+
+            <input
+              id="daysPerWeek"
+              type="number"
+              min="1"
+              value="5"
+            >
+          </label>
+
+
+          <label>
+            Weeks per month
+
+            <input
+              id="weeksPerMonth"
+              type="number"
+              min="1"
+              step="0.01"
+              value="4.33"
+            >
+          </label>
+
+
+          <label>
+            Working months / year
+
+            <input
+              id="monthsPerYear"
+              type="number"
+              min="1"
+              max="12"
+              value="12"
+            >
+          </label>
+
+        </div>
+
+
+        <button
+          id="calculateRate"
+          class="primary-button"
+          type="button"
+        >
+          Calculate
+        </button>
+
+
+        <div
+          id="calculatorResults"
+          class="results-area"
+        >
+          <p class="results-placeholder">
+            Your estimated earnings will appear here.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SAFETY -->
+
+  <section class="safety-section">
+
+    <div class="container">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          Before you apply
+        </p>
+
+        <h2>
+          Protect yourself. Know your value.
+        </h2>
+
+      </div>
+
+
+      <div class="safety-grid">
+
+        <div class="safety-card">
+
+          <h3>
+            🚩 Never pay to get a job.
+          </h3>
+
+          <p>
+            A legitimate remote job should not require
+            a joining fee, recruitment fee, application fee,
+            or payment simply to be hired.
+          </p>
+
+          <strong>
+            Verify the employer independently.
+          </strong>
+
+        </div>
+
+
+        <div class="safety-card">
+
+          <h3>
+            Know your value.
+          </h3>
+
+          <p>
+            Don't automatically accept a low-ball offer
+            just because you need a sideline.
+            Research reasonable market rates and negotiate
+            professionally.
+          </p>
+
+          <strong>
+            Starting small is okay. Undervaluing yourself is not.
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- UPSKILL -->
+
+  <section class="upskill-section">
+
+    <div class="container">
+
+      <div class="upskill-card">
+
+        <p class="eyebrow">
+          Keep learning
+        </p>
+
+        <h2>
+          Build skills while you explore.
+        </h2>
+
+        <p>
+          Not sure what skill to learn next?
+          Explore free courses through Alison and
+          find opportunities to improve your knowledge.
+        </p>
+
+        <a
+          class="secondary-button"
+          href="https://alison.com/certificate-courses?utm_source=alison_user&utm_medium=affiliate&utm_campaign=42404117"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Explore Free Courses
+        </a>
+
+        <p class="affiliate-note">
+          Alison is an external learning platform.
+          Tabing Guhit does not guarantee course outcomes,
+          employment, or income.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer class="site-footer">
+
+  <div class="container">
+
+    <p>
+      <strong>TABING GUHIT</strong>
+    </p>
+
+    <p>
+      A calm place to figure out your next move.
+    </p>
+
+    <p>
+      Tabing Guhit is an informational and educational guide.
+      It does not guarantee employment, clients, income,
+      or job placement.
+    </p>
+
+    <p>
+      Currency conversions and earning estimates are
+      for informational purposes only.
+      Actual payments may differ because of exchange rates,
+      taxes, fees, unpaid time, and contract terms.
+    </p>
+
+  </div>
+
+</footer>
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
