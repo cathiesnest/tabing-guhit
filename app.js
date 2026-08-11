@@ -9,169 +9,60 @@ const monthsPerYearInput = document.getElementById("monthsPerYear");
 const calculateButton = document.getElementById("calculateRate");
 const resultsArea = document.getElementById("calculatorResults");
 
-const startAssessmentButton = document.getElementById("startAssessment");
-const generateNicheButton = document.getElementById("generateNiche");
-const nicheResults = document.getElementById("nicheResults");
-const nicheAssessment = document.getElementById("nicheAssessment");
+const startAssessmentButton =
+  document.getElementById("startAssessment");
+
+const generateNicheButton =
+  document.getElementById("generateNiche");
+
+const nicheResults =
+  document.getElementById("nicheResults");
 
 
-/* =========================
-   CURRENCY CALCULATOR
-========================= */
-
-const exchangeRatesToUSD = {
-  USD: 1,
-  PHP: 60.83,
-  CAD: 1.37,
-  AUD: 1.53,
-  GBP: 0.74,
-  EUR: 0.86,
-  SGD: 1.28,
-  AED: 3.67,
-  SAR: 3.75,
-  QAR: 3.64,
-  JPY: 147
-};
-
-function convertCurrency(amount, fromCurrency, toCurrency) {
-  const fromRate = exchangeRatesToUSD[fromCurrency];
-  const toRate = exchangeRatesToUSD[toCurrency];
-
-  if (!fromRate || !toRate) {
-    return amount;
-  }
-
-  return (amount / fromRate) * toRate;
-}
-
-function formatMoney(amount, currency) {
-  try {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency,
-      maximumFractionDigits: 2
-    }).format(amount);
-  } catch {
-    return `${currency} ${amount.toFixed(2)}`;
-  }
-}
-
-function calculateRate() {
-  const hourlyRate = Number(hourlyRateInput.value);
-  const fromCurrency = fromCurrencyInput.value;
-  const toCurrency = toCurrencyInput.value;
-
-  const hoursPerDay = Number(hoursPerDayInput.value);
-  const daysPerWeek = Number(daysPerWeekInput.value);
-  const weeksPerMonth = Number(weeksPerMonthInput.value);
-  const monthsPerYear = Number(monthsPerYearInput.value);
-
-  if (
-    hourlyRate < 0 ||
-    hoursPerDay <= 0 ||
-    daysPerWeek <= 0 ||
-    weeksPerMonth <= 0 ||
-    monthsPerYear <= 0
-  ) {
-    resultsArea.innerHTML = `
-      <p class="results-placeholder">
-        Please enter valid numbers before calculating.
-      </p>
-    `;
-    return;
-  }
-
-  const hourly = hourlyRate;
-  const daily = hourlyRate * hoursPerDay;
-  const weekly = daily * daysPerWeek;
-  const monthly = weekly * weeksPerMonth;
-  const yearly = monthly * monthsPerYear;
-
-  const values = [
-    ["Hourly", hourly],
-    ["Daily", daily],
-    ["Weekly", weekly],
-    ["Monthly", monthly],
-    ["Yearly", yearly]
-  ];
-
-  const rows = values.map(([period, amount]) => {
-    const convertedAmount = convertCurrency(
-      amount,
-      fromCurrency,
-      toCurrency
-    );
-
-    return `
-      <tr>
-        <td>${period}</td>
-        <td>${formatMoney(amount, fromCurrency)}</td>
-        <td>${formatMoney(convertedAmount, toCurrency)}</td>
-      </tr>
-    `;
-  }).join("");
-
-  resultsArea.innerHTML = `
-    <table class="results-table">
-      <thead>
-        <tr>
-          <th>Period</th>
-          <th>${fromCurrency}</th>
-          <th>${toCurrency}</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        ${rows}
-      </tbody>
-    </table>
-
-    <p class="calculator-disclaimer">
-      This is a planning estimate only.
-      Actual earnings may vary because of taxes,
-      unpaid leave, platform fees, payment fees,
-      exchange-rate changes, and contract terms.
-    </p>
-  `;
-}
-
-
-/* =========================
-   START FOR FREE
-========================= */
+// ===============================
+// START / FIND MY NICHE
+// ===============================
 
 if (startAssessmentButton) {
   startAssessmentButton.addEventListener("click", function () {
-    if (nicheAssessment) {
-      nicheAssessment.scrollIntoView({
+
+    const assessment =
+      document.getElementById("nicheAssessment");
+
+    if (assessment) {
+      assessment.scrollIntoView({
         behavior: "smooth",
         block: "start"
       });
     }
+
   });
 }
 
 
-/* =========================
-   NICHE ASSESSMENT
-========================= */
-
-function getAnswer(questionName) {
-  const selected = document.querySelector(
-    'input[name="' + questionName + '"]:checked'
-  );
-
-  return selected ? selected.value : "";
-}
-
+// ===============================
+// NICHE GENERATOR
+// ===============================
 
 function generateNiche() {
 
-  const skill = getAnswer("skill");
-  const interest = getAnswer("interest");
-  const time = getAnswer("time");
-  const goal = getAnswer("goal");
-  const startingPoint = getAnswer("startingPoint");
+  const skill =
+    document.querySelector('input[name="skill"]:checked');
+
+  const interest =
+    document.querySelector('input[name="interest"]:checked');
+
+  const time =
+    document.querySelector('input[name="time"]:checked');
+
+  const goal =
+    document.querySelector('input[name="goal"]:checked');
+
+  const startingPoint =
+    document.querySelector(
+      'input[name="startingPoint"]:checked'
+    );
+
 
   if (
     !skill ||
@@ -180,14 +71,16 @@ function generateNiche() {
     !goal ||
     !startingPoint
   ) {
+
     nicheResults.hidden = false;
 
     nicheResults.innerHTML = `
-      <div class="results-placeholder">
+      <div class="niche-result-card">
         <h3>Almost there!</h3>
+
         <p>
-          Please answer all five questions before
-          showing your possible niches.
+          Please answer all five questions
+          before we identify possible niches for you.
         </p>
       </div>
     `;
@@ -204,73 +97,173 @@ function generateNiche() {
   let niches = [];
 
 
-  if (skill === "admin") {
-    niches = [
+  // ADMIN
+  if (skill.value === "admin") {
+    niches.push(
       "Virtual Assistant",
-      "Administrative Support",
-      "Data Entry Specialist",
-      "Executive Assistant"
-    ];
+      "Administrative Assistant",
+      "Executive Virtual Assistant",
+      "Data Entry Specialist"
+    );
   }
 
-  else if (skill === "customer") {
-    niches = [
-      "Customer Support",
+
+  // CUSTOMER SERVICE
+  if (skill.value === "customer") {
+    niches.push(
+      "Customer Support Specialist",
       "Chat Support",
-      "Client Success Assistant",
-      "Appointment Setter"
-    ];
+      "Customer Success Assistant",
+      "Virtual Receptionist"
+    );
   }
 
-  else if (skill === "writing") {
-    niches = [
+
+  // WRITING
+  if (skill.value === "writing") {
+    niches.push(
       "Content Writer",
-      "Copywriter",
+      "Copywriting Assistant",
       "Social Media Assistant",
-      "Virtual Assistant"
-    ];
+      "Email Support Specialist"
+    );
   }
 
-  else if (skill === "sales") {
-    niches = [
+
+  // SALES
+  if (skill.value === "sales") {
+    niches.push(
       "Appointment Setter",
-      "Sales Assistant",
-      "Lead Generation Specialist",
-      "Social Selling Assistant"
-    ];
+      "Lead Generation Assistant",
+      "Sales Support",
+      "Social Media Sales Assistant"
+    );
   }
 
-  else if (skill === "creative") {
-    niches = [
+
+  // CREATIVE
+  if (skill.value === "creative") {
+    niches.push(
       "Canva Designer",
-      "Social Media Assistant",
-      "Graphic Design Assistant",
-      "Content Creator"
-    ];
+      "Social Media Content Creator",
+      "Short-Form Video Assistant",
+      "Graphic Design Assistant"
+    );
   }
 
-  else if (skill === "teaching") {
-    niches = [
+
+  // TEACHING
+  if (skill.value === "teaching") {
+    niches.push(
       "Online Tutor",
+      "Learning Assistant",
       "Course Assistant",
-      "Learning Support Assistant",
-      "Online Coach"
-    ];
+      "Virtual Training Assistant"
+    );
   }
 
-  else if (skill === "tech") {
-    niches = [
+
+  // TECHNOLOGY
+  if (skill.value === "tech") {
+    niches.push(
       "AI Assistant",
-      "No-Code Assistant",
-      "Automation Assistant",
-      "Technical Virtual Assistant"
-    ];
+      "No-Code Automation Assistant",
+      "Tech Virtual Assistant",
+      "AI Content Assistant"
+    );
+  }
+
+
+  // ADD INTEREST-BASED OPTIONS
+
+  if (interest.value === "creative") {
+    niches.push("Canva Content Creator");
+  }
+
+  if (interest.value === "technology") {
+    niches.push("AI Tools Assistant");
+  }
+
+  if (interest.value === "business") {
+    niches.push("E-commerce Assistant");
+  }
+
+  if (interest.value === "teaching") {
+    niches.push("Online Teaching Assistant");
+  }
+
+  if (interest.value === "people") {
+    niches.push("Customer Success Assistant");
+  }
+
+  if (interest.value === "behind") {
+    niches.push("Back-Office Virtual Assistant");
+  }
+
+
+  // REMOVE DUPLICATES
+  niches = [...new Set(niches)];
+
+
+  // LIMIT RESULTS
+  niches = niches.slice(0, 6);
+
+
+  let timeMessage = "";
+
+  if (time.value === "small") {
+    timeMessage =
+      "Since you have limited time, consider starting with flexible tasks that can be done a few hours per week.";
+  }
+
+  if (time.value === "medium") {
+    timeMessage =
+      "Your available time gives you room to build a consistent part-time sideline.";
+  }
+
+  if (time.value === "large") {
+    timeMessage =
+      "You have enough time to seriously develop a freelance or remote-work path.";
+  }
+
+  if (time.value === "full") {
+    timeMessage =
+      "With 20+ hours available, you can explore a more substantial freelance or remote career path.";
+  }
+
+
+  let goalMessage = "";
+
+  if (goal.value === "income") {
+    goalMessage =
+      "Focus first on skills you can already offer and monetize quickly.";
+  }
+
+  if (goal.value === "remote") {
+    goalMessage =
+      "Remote support, administration, customer service, and online assistant roles may be worth exploring.";
+  }
+
+  if (goal.value === "freelance") {
+    goalMessage =
+      "Build a simple service around one skill and gradually develop your portfolio.";
+  }
+
+  if (goal.value === "business") {
+    goalMessage =
+      "Consider combining your skill with a small digital service or online business.";
+  }
+
+  if (goal.value === "learn") {
+    goalMessage =
+      "Choose one skill to strengthen instead of trying to learn everything at once.";
   }
 
 
   nicheResults.hidden = false;
 
   nicheResults.innerHTML = `
+
     <div class="niche-result-card">
 
       <p class="eyebrow">
@@ -278,84 +271,75 @@ function generateNiche() {
       </p>
 
       <h2>
-        You may want to explore:
+        Here are some directions worth exploring.
       </h2>
 
+      <p>
+        Based on your answers, these are possible
+        niches that may fit your current starting point.
+      </p>
+
       <div class="niche-list">
-        ${niches.map(function(niche) {
-          return `
-            <div class="niche-option">
+
+        ${niches.map((niche, index) => `
+          <div class="niche-option">
+
+            <span class="niche-number">
+              ${index + 1}
+            </span>
+
+            <div>
               <strong>${niche}</strong>
-              <span>
-                A possible direction based on your answers.
-              </span>
+              <p>
+                A possible sideline direction
+                to research and try.
+              </p>
             </div>
-          `;
-        }).join("")}
+
+          </div>
+        `).join("")}
+
       </div>
 
-      <div class="niche-next-step">
+      <div class="niche-guidance">
 
         <h3>
-          What's next?
+          Your next step
         </h3>
 
         <p>
-          You don't need to master everything first.
-          Pick one direction, build the skills,
-          and start exploring real opportunities.
+          ${timeMessage}
         </p>
 
         <p>
-          Your results are only a starting point.
-          Your experience, portfolio, availability,
-          location, and market demand will also matter.
+          ${goalMessage}
+        </p>
+
+        <p>
+          You don't have to be an expert before
+          you begin. Start small, learn, practice,
+          and test whether the niche fits you.
         </p>
 
       </div>
 
-      <button
-        class="secondary-button"
-        type="button"
-        id="goToRateCalculator"
-      >
-        💰 Explore Your Possible Rate
-      </button>
+      <p class="niche-disclaimer">
+        These are possible directions, not job
+        recommendations or guarantees of employment.
+      </p>
 
     </div>
   `;
 
 
-  const goToRateCalculator =
-    document.getElementById("goToRateCalculator");
-
-  if (goToRateCalculator) {
-    goToRateCalculator.addEventListener("click", function() {
-
-      const calculator =
-        document.getElementById("rateCalculator");
-
-      if (calculator) {
-        calculator.scrollIntoView({
-          behavior: "smooth",
-          block: "start"
-        });
-      }
-
-    });
-  }
-
-
   nicheResults.scrollIntoView({
     behavior: "smooth",
-    block: "center"
+    block: "start"
   });
 }
 
 
-/* =========================
-   CONNECT NICHE BUTTON
-========================= */
+// CONNECT BUTTON TO FUNCTION
 
 if (generateNicheButton) {
 
@@ -367,9 +351,217 @@ if (generateNicheButton) {
 }
 
 
-/* =========================
-   CALCULATOR BUTTON
-========================= */
+// ===============================
+// CURRENCY CALCULATOR
+// ===============================
+
+const exchangeRatesToUSD = {
+
+  USD: 1,
+  PHP: 60.83,
+  CAD: 1.37,
+  AUD: 1.53,
+  GBP: 0.74,
+  EUR: 0.86,
+  SGD: 1.28,
+  AED: 3.67,
+  SAR: 3.75,
+  QAR: 3.64,
+  JPY: 147
+
+};
+
+
+function convertCurrency(
+  amount,
+  fromCurrency,
+  toCurrency
+) {
+
+  const fromRate =
+    exchangeRatesToUSD[fromCurrency];
+
+  const toRate =
+    exchangeRatesToUSD[toCurrency];
+
+  if (!fromRate || !toRate) {
+    return amount;
+  }
+
+  const amountInUSD =
+    amount / fromRate;
+
+  return amountInUSD * toRate;
+}
+
+
+function formatMoney(amount, currency) {
+
+  try {
+
+    return new Intl.NumberFormat(
+      "en-US",
+      {
+        style: "currency",
+        currency: currency,
+        maximumFractionDigits: 2
+      }
+    ).format(amount);
+
+  } catch {
+
+    return `${currency} ${amount.toFixed(2)}`;
+
+  }
+
+}
+
+
+function calculateRate() {
+
+  const hourlyRate =
+    Number(hourlyRateInput.value);
+
+  const fromCurrency =
+    fromCurrencyInput.value;
+
+  const toCurrency =
+    toCurrencyInput.value;
+
+  const hoursPerDay =
+    Number(hoursPerDayInput.value);
+
+  const daysPerWeek =
+    Number(daysPerWeekInput.value);
+
+  const weeksPerMonth =
+    Number(weeksPerMonthInput.value);
+
+  const monthsPerYear =
+    Number(monthsPerYearInput.value);
+
+
+  if (
+    hourlyRate < 0 ||
+    hoursPerDay <= 0 ||
+    daysPerWeek <= 0 ||
+    weeksPerMonth <= 0 ||
+    monthsPerYear <= 0
+  ) {
+
+    resultsArea.innerHTML = `
+      <p class="results-placeholder">
+        Please enter valid numbers before calculating.
+      </p>
+    `;
+
+    return;
+
+  }
+
+
+  const daily =
+    hourlyRate * hoursPerDay;
+
+  const weekly =
+    daily * daysPerWeek;
+
+  const monthly =
+    weekly * weeksPerMonth;
+
+  const yearly =
+    monthly * monthsPerYear;
+
+
+  const values = [
+
+    ["Hourly", hourlyRate],
+    ["Daily", daily],
+    ["Weekly", weekly],
+    ["Monthly", monthly],
+    ["Yearly", yearly]
+
+  ];
+
+
+  const rows = values.map(
+    ([period, amount]) => {
+
+      const convertedAmount =
+        convertCurrency(
+          amount,
+          fromCurrency,
+          toCurrency
+        );
+
+
+      return `
+
+        <tr>
+
+          <td>${period}</td>
+
+          <td>
+            ${formatMoney(
+              amount,
+              fromCurrency
+            )}
+          </td>
+
+          <td>
+            ${formatMoney(
+              convertedAmount,
+              toCurrency
+            )}
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+  ).join("");
+
+
+  resultsArea.innerHTML = `
+
+    <table class="results-table">
+
+      <thead>
+
+        <tr>
+
+          <th>Period</th>
+
+          <th>${fromCurrency}</th>
+
+          <th>${toCurrency}</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${rows}
+
+      </tbody>
+
+    </table>
+
+    <p class="calculator-disclaimer">
+
+      This is a planning estimate only.
+      Actual earnings may vary because of taxes,
+      unpaid leave, platform fees, payment fees,
+      exchange-rate changes, and contract terms.
+
+    </p>
+
+  `;
+
+}
+
 
 if (calculateButton) {
 
@@ -381,9 +573,7 @@ if (calculateButton) {
 }
 
 
-/* =========================
-   INITIAL CALCULATION
-========================= */
+// Calculate example on page load
 
 if (
   hourlyRateInput &&
@@ -395,5 +585,7 @@ if (
   monthsPerYearInput &&
   resultsArea
 ) {
+
   calculateRate();
+
 }
