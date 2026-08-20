@@ -1,4 +1,4 @@
-```javascript
+
 // ==========================================
 // TABING GUHIT — APP.JS
 // Niche Finder + Rate Calculator + GA4 Tracking
