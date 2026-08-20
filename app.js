@@ -1,7 +1,23 @@
+```javascript
 // ==========================================
 // TABING GUHIT — APP.JS
-// Niche Finder + Rate Calculator
+// Niche Finder + Rate Calculator + GA4 Tracking
 // ==========================================
+
+
+// ==========================================
+// GA4 EVENT TRACKING
+// ==========================================
+
+function trackEvent(eventName, parameters = {}) {
+
+  if (typeof gtag === "function") {
+
+    gtag("event", eventName, parameters);
+
+  }
+
+}
 
 
 // ==========================================
@@ -42,25 +58,15 @@ const nicheResults =
 const exchangeRatesToUSD = {
 
   USD: 1,
-
   PHP: 60.83,
-
   CAD: 1.37,
-
   AUD: 1.53,
-
   GBP: 0.74,
-
   EUR: 0.86,
-
   SGD: 1.28,
-
   AED: 3.67,
-
   SAR: 3.75,
-
   QAR: 3.64,
-
   JPY: 147
 
 };
@@ -90,6 +96,7 @@ function convertCurrency(
     amount / fromRate;
 
   return amountInUSD * toRate;
+
 }
 
 
@@ -179,6 +186,22 @@ function calculateRate() {
   }
 
 
+  // ========================================
+  // GA4 — RATE CALCULATOR USED
+  // ========================================
+
+  trackEvent(
+    "rate_calculated",
+    {
+      from_currency: fromCurrency,
+      to_currency: toCurrency,
+      hours_per_day: hoursPerDay,
+      days_per_week: daysPerWeek,
+      months_per_year: monthsPerYear
+    }
+  );
+
+
   // Calculations
 
   const hourly =
@@ -204,13 +227,9 @@ function calculateRate() {
   const values = [
 
     ["Hourly", hourly],
-
     ["Daily", daily],
-
     ["Weekly", weekly],
-
     ["Monthly", monthly],
-
     ["Yearly", yearly]
 
   ];
@@ -331,6 +350,11 @@ if (clearCalculatorButton) {
     "click",
     function () {
 
+      trackEvent(
+        "calculator_cleared"
+      );
+
+
       hourlyRateInput.value = "";
 
       fromCurrencyInput.value = "USD";
@@ -371,10 +395,19 @@ if (startAssessmentButton) {
     "click",
     function () {
 
+
+      // GA4 — ASSESSMENT STARTED
+
+      trackEvent(
+        "start_niche_assessment"
+      );
+
+
       const assessment =
         document.getElementById(
           "nicheAssessment"
         );
+
 
       if (assessment) {
 
@@ -474,6 +507,22 @@ function generateNiche() {
     return;
 
   }
+
+
+  // ========================================
+  // GA4 — NICHE RESULTS GENERATED
+  // ========================================
+
+  trackEvent(
+    "niche_results_generated",
+    {
+      skill: skill.value,
+      interest: interest.value,
+      time_available: time.value,
+      goal: goal.value,
+      starting_point: startingPoint.value
+    }
+  );
 
 
   // ========================================
@@ -788,9 +837,15 @@ function generateNiche() {
 
 
       <p class="calculator-link-text">
+
         Want to estimate your potential rate?
+
         Scroll down to use the
-        <strong>Global Currency & Rate Calculator.</strong>
+
+        <strong>
+          Global Currency & Rate Calculator.
+        </strong>
+
       </p>
 
     </div>
@@ -832,6 +887,11 @@ if (clearAssessmentButton) {
   clearAssessmentButton.addEventListener(
     "click",
     function () {
+
+
+      trackEvent(
+        "assessment_cleared"
+      );
 
 
       document
@@ -898,3 +958,32 @@ if (resultsArea) {
   `;
 
 }
+
+
+// ==========================================
+// ALISON CLICK TRACKING
+// ==========================================
+
+const alisonLink =
+  document.querySelector(
+    'a[href*="alison.com"]'
+  );
+
+if (alisonLink) {
+
+  alisonLink.addEventListener(
+    "click",
+    function () {
+
+      trackEvent(
+        "alison_click",
+        {
+          link_destination: "alison"
+        }
+      );
+
+    }
+  );
+
+}
+```
