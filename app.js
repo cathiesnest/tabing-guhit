@@ -1,8 +1,9 @@
 /* =========================================================
    TABING GUHIT — APP.JS
-   Final Core JavaScript
+   Coordinated Core JavaScript
    Niche Finder + Rate Calculator + GA4
-   Login/Demo Session + Navigation Helpers
+   Local Demo Login + Create Account + Logout
+   Demo Walkthrough
    ========================================================= */
 
 
@@ -11,9 +12,11 @@
    ========================================================= */
 
 function trackEvent(eventName, parameters = {}) {
+
   if (typeof gtag === "function") {
     gtag("event", eventName, parameters);
   }
+
 }
 
 
@@ -27,36 +30,799 @@ function getElement(id) {
 
 
 /* =========================================================
-   ELEMENTS
+   SESSION
    ========================================================= */
 
-const hourlyRateInput = getElement("hourlyRate");
-const fromCurrencyInput = getElement("fromCurrency");
-const toCurrencyInput = getElement("toCurrency");
+const SESSION_KEY = "tabingGuhitSession";
 
-const hoursPerDayInput = getElement("hoursPerDay");
-const daysPerWeekInput = getElement("daysPerWeek");
-const monthsPerYearInput = getElement("monthsPerYear");
 
-const calculateButton = getElement("calculateRate");
-const clearCalculatorButton = getElement("clearCalculator");
+function getSession() {
 
-const resultsArea = getElement("calculatorResults");
+  try {
 
-const startAssessmentButton = getElement("startAssessment");
-const generateNicheButton = getElement("generateNiche");
-const clearAssessmentButton = getElement("clearAssessment");
+    const saved = localStorage.getItem(SESSION_KEY);
 
-const nicheResults = getElement("nicheResults");
+    return saved ? JSON.parse(saved) : null;
+
+  } catch (error) {
+
+    return null;
+
+  }
+
+}
+
+
+function saveSession(user) {
+
+  try {
+
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify(user)
+    );
+
+    return true;
+
+  } catch (error) {
+
+    console.warn("Unable to save session.");
+    return false;
+
+  }
+
+}
+
+
+function clearSession() {
+
+  try {
+
+    localStorage.removeItem(SESSION_KEY);
+
+  } catch (error) {
+
+    console.warn("Unable to clear session.");
+
+  }
+
+}
 
 
 /* =========================================================
-   EXCHANGE RATES
-   Planning estimates only
-   Base = USD
+   CREATE DEMO USER
+   ========================================================= */
+
+function createDemoSession() {
+
+  const demoUser = {
+
+    id: "demo-user",
+
+    name: "Demo User",
+
+    email: "demo@tabingguhit.com",
+
+    demo: true
+
+  };
+
+
+  saveSession(demoUser);
+
+  trackEvent(
+    "demo_login"
+  );
+
+
+  return demoUser;
+
+}
+
+
+/* =========================================================
+   CREATE LOCAL ACCOUNT
+   DEMO ONLY
+   ========================================================= */
+
+function createLocalAccount(
+  name,
+  email,
+  password
+) {
+
+  if (
+    !name ||
+    !email ||
+    !password
+  ) {
+
+    return {
+      success: false,
+      message: "Please complete all fields."
+    };
+
+  }
+
+
+  if (password.length < 6) {
+
+    return {
+      success: false,
+      message: "Password must be at least 6 characters."
+    };
+
+  }
+
+
+  const user = {
+
+    id:
+      "local-" +
+      Date.now(),
+
+    name:
+      name.trim(),
+
+    email:
+      email.trim(),
+
+    demo: false
+
+  };
+
+
+  /*
+     IMPORTANT:
+
+     This is a local demo profile only.
+     We intentionally do NOT store the password.
+     This is NOT production authentication.
+  */
+
+  saveSession(user);
+
+
+  trackEvent(
+    "account_created"
+  );
+
+
+  return {
+    success: true,
+    user: user
+  };
+
+}
+
+
+/* =========================================================
+   LOGIN
+   LOCAL DEMO EXPERIENCE
+   ========================================================= */
+
+function loginUser(
+  email,
+  password
+) {
+
+  if (
+    !email ||
+    !password
+  ) {
+
+    return {
+      success: false,
+      message: "Please enter your email and password."
+    };
+
+  }
+
+
+  /*
+     Demo login.
+
+     Any non-empty email/password combination
+     is accepted locally for demonstration purposes.
+  */
+
+  const user = {
+
+    id:
+      "local-" +
+      btoa(email.trim())
+        .replace(/[^a-zA-Z0-9]/g, "")
+        .slice(0, 30),
+
+    name:
+      email
+        .split("@")[0]
+        .replace(/[._-]/g, " ")
+        .replace(/\b\w/g, function (letter) {
+          return letter.toUpperCase();
+        }),
+
+    email:
+      email.trim(),
+
+    demo: false
+
+  };
+
+
+  saveSession(user);
+
+
+  trackEvent(
+    "login"
+  );
+
+
+  return {
+    success: true,
+    user: user
+  };
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+function logoutUser() {
+
+  clearSession();
+
+  trackEvent(
+    "logout"
+  );
+
+
+  window.location.reload();
+
+}
+
+
+/* =========================================================
+   FIND LOGIN ELEMENTS
+   Supports several possible IDs
+   ========================================================= */
+
+function findFirstElement(ids) {
+
+  for (const id of ids) {
+
+    const element = getElement(id);
+
+    if (element) {
+      return element;
+    }
+
+  }
+
+  return null;
+
+}
+
+
+const loginSection =
+  findFirstElement([
+    "loginScreen",
+    "welcomeScreen",
+    "authScreen"
+  ]);
+
+
+const appSection =
+  findFirstElement([
+    "appDashboard",
+    "dashboard",
+    "mainApp",
+    "appContent"
+  ]);
+
+
+const loginForm =
+  findFirstElement([
+    "loginForm"
+  ]);
+
+
+const emailInput =
+  findFirstElement([
+    "loginEmail",
+    "email",
+    "login-email"
+  ]);
+
+
+const passwordInput =
+  findFirstElement([
+    "loginPassword",
+    "password",
+    "login-password"
+  ]);
+
+
+const loginButton =
+  findFirstElement([
+    "loginButton",
+    "loginBtn",
+    "login"
+  ]);
+
+
+const createAccountButton =
+  findFirstElement([
+    "createAccount",
+    "createAccountButton",
+    "createAccountBtn"
+  ]);
+
+
+const demoButton =
+  findFirstElement([
+    "continueDemo",
+    "continueAsDemo",
+    "demoButton",
+    "demoLogin"
+  ]);
+
+
+const logoutButton =
+  findFirstElement([
+    "logoutButton",
+    "logoutBtn",
+    "logout"
+  ]);
+
+
+const watchDemoButton =
+  findFirstElement([
+    "watchDemo",
+    "watchDemoButton",
+    "demoVideoButton"
+  ]);
+
+
+/* =========================================================
+   AUTH MESSAGE
+   ========================================================= */
+
+function showAuthMessage(message, type = "error") {
+
+  const existing =
+    findFirstElement([
+      "authMessage",
+      "loginMessage",
+      "authStatus"
+    ]);
+
+
+  if (existing) {
+
+    existing.textContent = message;
+
+    existing.className =
+      "auth-message " +
+      type;
+
+    existing.hidden = false;
+
+    return;
+
+  }
+
+
+  alert(message);
+
+}
+
+
+/* =========================================================
+   SHOW / HIDE LOGIN
+   ========================================================= */
+
+function showLoginScreen() {
+
+  if (loginSection) {
+    loginSection.hidden = false;
+  }
+
+  if (appSection) {
+    appSection.hidden = true;
+  }
+
+}
+
+
+function showAppScreen() {
+
+  if (loginSection) {
+    loginSection.hidden = true;
+  }
+
+  if (appSection) {
+    appSection.hidden = false;
+  }
+
+}
+
+
+/* =========================================================
+   UPDATE USER DISPLAY
+   ========================================================= */
+
+function updateUserDisplay(user) {
+
+  if (!user) {
+    return;
+  }
+
+
+  const nameElements =
+    document.querySelectorAll(
+      "[data-user-name]"
+    );
+
+
+  nameElements.forEach(function (element) {
+
+    element.textContent =
+      user.name;
+
+  });
+
+
+  const emailElements =
+    document.querySelectorAll(
+      "[data-user-email]"
+    );
+
+
+  emailElements.forEach(function (element) {
+
+    element.textContent =
+      user.email;
+
+  });
+
+}
+
+
+/* =========================================================
+   LOGIN BUTTON
+   ========================================================= */
+
+function handleLogin() {
+
+  const email =
+    emailInput
+      ? emailInput.value.trim()
+      : "";
+
+
+  const password =
+    passwordInput
+      ? passwordInput.value
+      : "";
+
+
+  const result =
+    loginUser(
+      email,
+      password
+    );
+
+
+  if (!result.success) {
+
+    showAuthMessage(
+      result.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  updateUserDisplay(
+    result.user
+  );
+
+
+  showAppScreen();
+
+}
+
+
+/* =========================================================
+   LOGIN FORM SUBMIT
+   ========================================================= */
+
+if (loginForm) {
+
+  loginForm.addEventListener(
+    "submit",
+    function (event) {
+
+      event.preventDefault();
+
+      handleLogin();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LOGIN BUTTON CLICK
+   ========================================================= */
+
+if (loginButton) {
+
+  loginButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+
+      handleLogin();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CREATE ACCOUNT
+   ========================================================= */
+
+function handleCreateAccount() {
+
+  const name =
+    prompt(
+      "Enter your name:"
+    );
+
+
+  if (!name) {
+    return;
+  }
+
+
+  const email =
+    prompt(
+      "Enter your email:"
+    );
+
+
+  if (!email) {
+    return;
+  }
+
+
+  const password =
+    prompt(
+      "Create a password (6+ characters):"
+    );
+
+
+  if (!password) {
+    return;
+  }
+
+
+  const result =
+    createLocalAccount(
+      name,
+      email,
+      password
+    );
+
+
+  if (!result.success) {
+
+    showAuthMessage(
+      result.message,
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  updateUserDisplay(
+    result.user
+  );
+
+
+  showAppScreen();
+
+
+  showAuthMessage(
+    "Your local demo profile has been created.",
+    "success"
+  );
+
+}
+
+
+if (createAccountButton) {
+
+  createAccountButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+
+      handleCreateAccount();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   CONTINUE AS DEMO
+   ========================================================= */
+
+function handleDemoLogin() {
+
+  const user =
+    createDemoSession();
+
+
+  updateUserDisplay(
+    user
+  );
+
+
+  showAppScreen();
+
+}
+
+
+if (demoButton) {
+
+  demoButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+
+      handleDemoLogin();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   LOGOUT BUTTON
+   ========================================================= */
+
+if (logoutButton) {
+
+  logoutButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+
+      logoutUser();
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   DEMO VIDEO
+   ========================================================= */
+
+if (watchDemoButton) {
+
+  watchDemoButton.addEventListener(
+    "click",
+    function (event) {
+
+      event.preventDefault();
+
+
+      trackEvent(
+        "demo_video_clicked"
+      );
+
+
+      const video =
+        findFirstElement([
+          "demoVideo",
+          "walkthroughVideo"
+        ]);
+
+
+      if (video) {
+
+        video.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+
+        if (
+          typeof video.play === "function"
+        ) {
+
+          video.play().catch(
+            function () {}
+          );
+
+        }
+
+        return;
+
+      }
+
+
+      showAuthMessage(
+        "The walkthrough video will be added here soon.",
+        "info"
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   HOURLY RATE CALCULATOR ELEMENTS
+   ========================================================= */
+
+const hourlyRateInput =
+  getElement("hourlyRate");
+
+const fromCurrencyInput =
+  getElement("fromCurrency");
+
+const toCurrencyInput =
+  getElement("toCurrency");
+
+const hoursPerDayInput =
+  getElement("hoursPerDay");
+
+const daysPerWeekInput =
+  getElement("daysPerWeek");
+
+const monthsPerYearInput =
+  getElement("monthsPerYear");
+
+const calculateButton =
+  getElement("calculateRate");
+
+const clearCalculatorButton =
+  getElement("clearCalculator");
+
+const resultsArea =
+  getElement("calculatorResults");
+
+
+/* =========================================================
+   CURRENCY RATES
+   PLANNING ESTIMATES ONLY
    ========================================================= */
 
 const exchangeRatesToUSD = {
+
   USD: 1,
   PHP: 60.83,
   CAD: 1.37,
@@ -68,6 +834,7 @@ const exchangeRatesToUSD = {
   SAR: 3.75,
   QAR: 3.64,
   JPY: 147
+
 };
 
 
@@ -75,21 +842,35 @@ const exchangeRatesToUSD = {
    CURRENCY CONVERSION
    ========================================================= */
 
-function convertCurrency(amount, fromCurrency, toCurrency) {
+function convertCurrency(
+  amount,
+  fromCurrency,
+  toCurrency
+) {
 
-  const fromRate = exchangeRatesToUSD[fromCurrency];
-  const toRate = exchangeRatesToUSD[toCurrency];
+  const fromRate =
+    exchangeRatesToUSD[fromCurrency];
+
+  const toRate =
+    exchangeRatesToUSD[toCurrency];
+
 
   if (
     !Number.isFinite(fromRate) ||
     !Number.isFinite(toRate)
   ) {
+
     return amount;
+
   }
 
-  const amountInUSD = amount / fromRate;
+
+  const amountInUSD =
+    amount / fromRate;
+
 
   return amountInUSD * toRate;
+
 }
 
 
@@ -97,11 +878,17 @@ function convertCurrency(amount, fromCurrency, toCurrency) {
    MONEY FORMAT
    ========================================================= */
 
-function formatMoney(amount, currency) {
+function formatMoney(
+  amount,
+  currency
+) {
 
   if (!Number.isFinite(amount)) {
+
     return `${currency} 0.00`;
+
   }
+
 
   try {
 
@@ -119,6 +906,7 @@ function formatMoney(amount, currency) {
     return `${currency} ${amount.toFixed(2)}`;
 
   }
+
 }
 
 
@@ -137,86 +925,118 @@ function calculateRate() {
     !monthsPerYearInput ||
     !resultsArea
   ) {
+
     return;
+
   }
 
 
-  const hourlyRate = Number(hourlyRateInput.value);
-
-  const fromCurrency = fromCurrencyInput.value;
-  const toCurrency = toCurrencyInput.value;
-
-  const hoursPerDay = Number(hoursPerDayInput.value);
-  const daysPerWeek = Number(daysPerWeekInput.value);
-  const monthsPerYear = Number(monthsPerYearInput.value);
+  const hourlyRate =
+    Number(
+      hourlyRateInput.value
+    );
 
 
-  /* -----------------------------------------
-     VALIDATION
-     ----------------------------------------- */
+  const fromCurrency =
+    fromCurrencyInput.value;
+
+
+  const toCurrency =
+    toCurrencyInput.value;
+
+
+  const hoursPerDay =
+    Number(
+      hoursPerDayInput.value
+    );
+
+
+  const daysPerWeek =
+    Number(
+      daysPerWeekInput.value
+    );
+
+
+  const monthsPerYear =
+    Number(
+      monthsPerYearInput.value
+    );
+
 
   if (
     !Number.isFinite(hourlyRate) ||
     hourlyRate <= 0 ||
-    !Number.isFinite(hoursPerDay) ||
     hoursPerDay <= 0 ||
-    !Number.isFinite(daysPerWeek) ||
     daysPerWeek <= 0 ||
-    !Number.isFinite(monthsPerYear) ||
     monthsPerYear <= 0
   ) {
 
     resultsArea.innerHTML = `
+
       <div class="niche-result-card">
-        <h3>Almost there!</h3>
+
+        <h3>
+          Almost there!
+        </h3>
 
         <p>
           Please enter a valid hourly rate,
           hours per day, days per week,
           and working months per year.
         </p>
+
       </div>
+
     `;
 
     return;
+
   }
 
-
-  /* -----------------------------------------
-     GA4
-     ----------------------------------------- */
 
   trackEvent(
     "rate_calculated",
     {
-      from_currency: fromCurrency,
-      to_currency: toCurrency,
-      hours_per_day: hoursPerDay,
-      days_per_week: daysPerWeek,
-      months_per_year: monthsPerYear
+      from_currency:
+        fromCurrency,
+
+      to_currency:
+        toCurrency,
+
+      hours_per_day:
+        hoursPerDay,
+
+      days_per_week:
+        daysPerWeek,
+
+      months_per_year:
+        monthsPerYear
     }
   );
 
 
-  /* -----------------------------------------
-     CALCULATIONS
-     ----------------------------------------- */
+  const weeksPerMonth =
+    4.33;
 
-  const weeksPerMonth = 4.33;
 
-  const hourly = hourlyRate;
+  const hourly =
+    hourlyRate;
+
 
   const daily =
     hourlyRate *
     hoursPerDay;
 
+
   const weekly =
     daily *
     daysPerWeek;
 
+
   const monthly =
     weekly *
     weeksPerMonth;
+
 
   const yearly =
     monthly *
@@ -224,49 +1044,62 @@ function calculateRate() {
 
 
   const values = [
+
     ["Hourly", hourly],
+
     ["Daily", daily],
+
     ["Weekly", weekly],
+
     ["Monthly", monthly],
+
     ["Annual", yearly]
+
   ];
 
 
-  /* -----------------------------------------
-     RESULTS
-     ----------------------------------------- */
+  const rows =
+    values
+      .map(
+        function ([period, amount]) {
 
-  const rows = values
-    .map(function ([period, amount]) {
-
-      const convertedAmount =
-        convertCurrency(
-          amount,
-          fromCurrency,
-          toCurrency
-        );
-
-      return `
-        <tr>
-          <td>${period}</td>
-
-          <td>
-            ${formatMoney(
+          const convertedAmount =
+            convertCurrency(
               amount,
-              fromCurrency
-            )}
-          </td>
-
-          <td>
-            ${formatMoney(
-              convertedAmount,
+              fromCurrency,
               toCurrency
-            )}
-          </td>
-        </tr>
-      `;
-    })
-    .join("");
+            );
+
+
+          return `
+
+            <tr>
+
+              <td>
+                ${period}
+              </td>
+
+              <td>
+                ${formatMoney(
+                  amount,
+                  fromCurrency
+                )}
+              </td>
+
+              <td>
+                ${formatMoney(
+                  convertedAmount,
+                  toCurrency
+                )}
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      )
+      .join("");
 
 
   resultsArea.innerHTML = `
@@ -274,18 +1107,33 @@ function calculateRate() {
     <table class="results-table">
 
       <thead>
+
         <tr>
-          <th>Period</th>
-          <th>${fromCurrency}</th>
-          <th>${toCurrency}</th>
+
+          <th>
+            Period
+          </th>
+
+          <th>
+            ${fromCurrency}
+          </th>
+
+          <th>
+            ${toCurrency}
+          </th>
+
         </tr>
+
       </thead>
 
       <tbody>
+
         ${rows}
+
       </tbody>
 
     </table>
+
 
     <p class="calculator-disclaimer">
 
@@ -301,12 +1149,9 @@ function calculateRate() {
     </p>
 
   `;
+
 }
 
-
-/* =========================================================
-   CALCULATE BUTTON
-   ========================================================= */
 
 if (calculateButton) {
 
@@ -338,24 +1183,34 @@ if (clearCalculatorButton) {
         hourlyRateInput.value = "";
       }
 
+
       if (fromCurrencyInput) {
-        fromCurrencyInput.value = "USD";
+        fromCurrencyInput.value =
+          "USD";
       }
+
 
       if (toCurrencyInput) {
-        toCurrencyInput.value = "PHP";
+        toCurrencyInput.value =
+          "PHP";
       }
+
 
       if (hoursPerDayInput) {
-        hoursPerDayInput.value = "8";
+        hoursPerDayInput.value =
+          "8";
       }
+
 
       if (daysPerWeekInput) {
-        daysPerWeekInput.value = "5";
+        daysPerWeekInput.value =
+          "5";
       }
 
+
       if (monthsPerYearInput) {
-        monthsPerYearInput.value = "12";
+        monthsPerYearInput.value =
+          "12";
       }
 
 
@@ -381,7 +1236,24 @@ if (clearCalculatorButton) {
 
 
 /* =========================================================
-   FIND MY NICHE
+   NICHE FINDER
+   ========================================================= */
+
+const startAssessmentButton =
+  getElement("startAssessment");
+
+const generateNicheButton =
+  getElement("generateNiche");
+
+const clearAssessmentButton =
+  getElement("clearAssessment");
+
+const nicheResults =
+  getElement("nicheResults");
+
+
+/* =========================================================
+   START NICHE ASSESSMENT
    ========================================================= */
 
 if (startAssessmentButton) {
@@ -396,14 +1268,19 @@ if (startAssessmentButton) {
 
 
       const assessment =
-        getElement("nicheAssessment");
+        getElement(
+          "nicheAssessment"
+        );
 
 
       if (assessment) {
 
         assessment.scrollIntoView({
+
           behavior: "smooth",
+
           block: "start"
+
         });
 
       }
@@ -415,7 +1292,7 @@ if (startAssessmentButton) {
 
 
 /* =========================================================
-   NICHE GENERATOR
+   GENERATE NICHE
    ========================================================= */
 
 function generateNiche() {
@@ -430,30 +1307,30 @@ function generateNiche() {
       'input[name="skill"]:checked'
     );
 
+
   const interest =
     document.querySelector(
       'input[name="interest"]:checked'
     );
+
 
   const time =
     document.querySelector(
       'input[name="time"]:checked'
     );
 
+
   const goal =
     document.querySelector(
       'input[name="goal"]:checked'
     );
+
 
   const startingPoint =
     document.querySelector(
       'input[name="startingPoint"]:checked'
     );
 
-
-  /* -----------------------------------------
-     VALIDATION
-     ----------------------------------------- */
 
   if (
     !skill ||
@@ -463,7 +1340,9 @@ function generateNiche() {
     !startingPoint
   ) {
 
-    nicheResults.hidden = false;
+    nicheResults.hidden =
+      false;
+
 
     nicheResults.innerHTML = `
 
@@ -483,36 +1362,44 @@ function generateNiche() {
 
     `;
 
+
     nicheResults.scrollIntoView({
+
       behavior: "smooth",
+
       block: "center"
+
     });
 
+
     return;
+
   }
 
-
-  /* -----------------------------------------
-     GA4
-     ----------------------------------------- */
 
   trackEvent(
     "niche_results_generated",
     {
-      skill: skill.value,
-      interest: interest.value,
-      time_available: time.value,
-      goal: goal.value,
-      starting_point: startingPoint.value
+      skill:
+        skill.value,
+
+      interest:
+        interest.value,
+
+      time_available:
+        time.value,
+
+      goal:
+        goal.value,
+
+      starting_point:
+        startingPoint.value
     }
   );
 
 
-  /* -----------------------------------------
-     NICHE SUGGESTIONS
-     ----------------------------------------- */
-
   let niches = [];
+
   let explanation = "";
 
 
@@ -624,11 +1511,10 @@ function generateNiche() {
   }
 
 
-  /* -----------------------------------------
-     INTEREST REFINEMENT
-     ----------------------------------------- */
-
-  if (interest.value === "creative") {
+  if (
+    interest.value ===
+    "creative"
+  ) {
 
     niches.push(
       "Canva Content Specialist"
@@ -636,7 +1522,11 @@ function generateNiche() {
 
   }
 
-  if (interest.value === "technology") {
+
+  if (
+    interest.value ===
+    "technology"
+  ) {
 
     niches.push(
       "AI-Powered Virtual Assistant"
@@ -644,7 +1534,11 @@ function generateNiche() {
 
   }
 
-  if (interest.value === "business") {
+
+  if (
+    interest.value ===
+    "business"
+  ) {
 
     niches.push(
       "E-commerce Assistant"
@@ -652,7 +1546,11 @@ function generateNiche() {
 
   }
 
-  if (interest.value === "teaching") {
+
+  if (
+    interest.value ===
+    "teaching"
+  ) {
 
     niches.push(
       "Online Learning Assistant"
@@ -661,40 +1559,46 @@ function generateNiche() {
   }
 
 
-  /* -----------------------------------------
-     REMOVE DUPLICATES
-     ----------------------------------------- */
-
-  niches = [
-    ...new Set(niches)
-  ];
+  niches =
+    [
+      ...new Set(niches)
+    ];
 
 
-  niches = niches.slice(0, 5);
+  niches =
+    niches.slice(
+      0,
+      5
+    );
 
-
-  /* -----------------------------------------
-     TIME MESSAGE
-     ----------------------------------------- */
 
   let timeMessage = "";
 
 
-  if (time.value === "small") {
+  if (
+    time.value ===
+    "small"
+  ) {
 
     timeMessage =
       "Since you have limited time, consider starting with a small service or flexible freelance task.";
 
   }
 
-  else if (time.value === "medium") {
+  else if (
+    time.value ===
+    "medium"
+  ) {
 
     timeMessage =
       "With 5–10 hours available each week, you can begin building a consistent sideline.";
 
   }
 
-  else if (time.value === "large") {
+  else if (
+    time.value ===
+    "large"
+  ) {
 
     timeMessage =
       "With 10–20 hours available each week, you have room to develop a more structured freelance service.";
@@ -709,28 +1613,33 @@ function generateNiche() {
   }
 
 
-  /* -----------------------------------------
-     STARTING POINT MESSAGE
-     ----------------------------------------- */
-
   let startingMessage = "";
 
 
-  if (startingPoint.value === "experienced") {
+  if (
+    startingPoint.value ===
+    "experienced"
+  ) {
 
     startingMessage =
       "You may be ready to package an existing skill into a service.";
 
   }
 
-  else if (startingPoint.value === "experience") {
+  else if (
+    startingPoint.value ===
+    "experience"
+  ) {
 
     startingMessage =
       "Your existing experience can help you choose a direction without starting completely from zero.";
 
   }
 
-  else if (startingPoint.value === "beginner") {
+  else if (
+    startingPoint.value ===
+    "beginner"
+  ) {
 
     startingMessage =
       "You can start with one beginner-friendly skill and build from there.";
@@ -745,11 +1654,9 @@ function generateNiche() {
   }
 
 
-  /* -----------------------------------------
-     DISPLAY RESULTS
-     ----------------------------------------- */
+  nicheResults.hidden =
+    false;
 
-  nicheResults.hidden = false;
 
   nicheResults.innerHTML = `
 
@@ -767,29 +1674,52 @@ function generateNiche() {
         ${explanation}
       </p>
 
+
       <h4>
         Possible sideline niches:
       </h4>
 
+
       <ul>
 
         ${niches
-          .map(function (niche) {
-            return `<li>${niche}</li>`;
-          })
+          .map(
+            function (niche) {
+
+              return `
+                <li>
+                  ${niche}
+                </li>
+              `;
+
+            }
+          )
           .join("")}
 
       </ul>
 
-      <p>
-        <strong>Time:</strong>
-        ${timeMessage}
-      </p>
 
       <p>
-        <strong>Starting point:</strong>
-        ${startingMessage}
+
+        <strong>
+          Time:
+        </strong>
+
+        ${timeMessage}
+
       </p>
+
+
+      <p>
+
+        <strong>
+          Starting point:
+        </strong>
+
+        ${startingMessage}
+
+      </p>
+
 
       <div class="niche-next-step">
 
@@ -803,6 +1733,7 @@ function generateNiche() {
         or equipment.
 
       </div>
+
 
       <p class="calculator-link-text">
 
@@ -822,16 +1753,15 @@ function generateNiche() {
 
 
   nicheResults.scrollIntoView({
+
     behavior: "smooth",
+
     block: "start"
+
   });
 
 }
 
-
-/* =========================================================
-   SHOW NICHE RESULTS BUTTON
-   ========================================================= */
 
 if (generateNicheButton) {
 
@@ -844,7 +1774,7 @@ if (generateNicheButton) {
 
 
 /* =========================================================
-   CLEAR NICHE ASSESSMENT
+   CLEAR NICHE
    ONE CLEAR BUTTON
    ========================================================= */
 
@@ -860,7 +1790,9 @@ if (clearAssessmentButton) {
 
 
       const assessment =
-        getElement("nicheAssessment");
+        getElement(
+          "nicheAssessment"
+        );
 
 
       if (assessment) {
@@ -869,20 +1801,25 @@ if (clearAssessmentButton) {
           .querySelectorAll(
             'input[type="radio"]'
           )
-          .forEach(function (input) {
+          .forEach(
+            function (input) {
 
-            input.checked = false;
+              input.checked =
+                false;
 
-          });
+            }
+          );
 
       }
 
 
       if (nicheResults) {
 
-        nicheResults.innerHTML = "";
+        nicheResults.innerHTML =
+          "";
 
-        nicheResults.hidden = true;
+        nicheResults.hidden =
+          true;
 
       }
 
@@ -890,11 +1827,44 @@ if (clearAssessmentButton) {
       if (assessment) {
 
         assessment.scrollIntoView({
+
           behavior: "smooth",
+
           block: "start"
+
         });
 
       }
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   ALISON TRACKING
+   ========================================================= */
+
+const alisonLink =
+  getElement(
+    "alisonCoursesLink"
+  );
+
+
+if (alisonLink) {
+
+  alisonLink.addEventListener(
+    "click",
+    function () {
+
+      trackEvent(
+        "alison_click",
+        {
+          link_destination:
+            "alison"
+        }
+      );
 
     }
   );
@@ -923,173 +1893,53 @@ if (resultsArea) {
 
 
 /* =========================================================
-   ALISON CLICK TRACKING
+   RESTORE SESSION
    ========================================================= */
 
-const alisonLink =
-  getElement("alisonCoursesLink");
+function restoreSession() {
+
+  const user =
+    getSession();
 
 
-if (alisonLink) {
+  if (user) {
 
-  alisonLink.addEventListener(
-    "click",
-    function () {
+    updateUserDisplay(
+      user
+    );
 
-      trackEvent(
-        "alison_click",
-        {
-          link_destination: "alison"
-        }
-      );
+    showAppScreen();
+
+  }
+
+  else {
+
+    /*
+       If the expanded HTML has a login screen,
+       show it.
+
+       If the current page has no login screen,
+       leave the existing content visible.
+    */
+
+    if (loginSection) {
+
+      showLoginScreen();
 
     }
-  );
-
-}
-
-
-/* =========================================================
-   DEMO SESSION HELPERS
-   These are intentionally NOT real authentication.
-   They prepare the app for the expanded HTML.
-   ========================================================= */
-
-const SESSION_KEY =
-  "tabingGuhitSession";
-
-
-function getSession() {
-
-  try {
-
-    const saved =
-      localStorage.getItem(
-        SESSION_KEY
-      );
-
-    if (!saved) {
-      return null;
-    }
-
-    return JSON.parse(saved);
-
-  } catch (error) {
-
-    return null;
 
   }
 
 }
 
 
-function saveSession(user) {
-
-  try {
-
-    localStorage.setItem(
-      SESSION_KEY,
-      JSON.stringify(user)
-    );
-
-  } catch (error) {
-
-    console.warn(
-      "Unable to save Tabing Guhit session."
-    );
-
-  }
-
-}
-
-
-function clearSession() {
-
-  try {
-
-    localStorage.removeItem(
-      SESSION_KEY
-    );
-
-  } catch (error) {
-
-    console.warn(
-      "Unable to clear Tabing Guhit session."
-    );
-
-  }
-
-}
-
-
-function createDemoSession() {
-
-  const demoUser = {
-
-    id: "demo-user",
-
-    name: "Demo User",
-
-    email: "demo@tabingguhit.com",
-
-    demo: true
-
-  };
-
-
-  saveSession(demoUser);
-
-  trackEvent(
-    "demo_login"
-  );
-
-
-  return demoUser;
-
-}
-
-
 /* =========================================================
-   LOGOUT HELPER
-   ========================================================= */
-
-function logoutUser() {
-
-  clearSession();
-
-  trackEvent(
-    "logout"
-  );
-
-
-  /*
-     The final index.html will provide
-     the login/welcome screen.
-
-     Until then, simply reload the page.
-  */
-
-  window.location.reload();
-
-}
-
-
-/* =========================================================
-   EXPOSE SAFE APP FUNCTIONS
-   Allows the expanded HTML to use them.
+   PUBLIC APP API
    ========================================================= */
 
 window.TabingGuhit = {
 
   trackEvent,
-
-  calculateRate,
-
-  generateNiche,
-
-  convertCurrency,
-
-  formatMoney,
 
   getSession,
 
@@ -1099,18 +1949,33 @@ window.TabingGuhit = {
 
   createDemoSession,
 
-  logoutUser
+  createLocalAccount,
+
+  loginUser,
+
+  logoutUser,
+
+  calculateRate,
+
+  generateNiche,
+
+  convertCurrency,
+
+  formatMoney
 
 };
 
 
 /* =========================================================
-   READY
+   APP READY
    ========================================================= */
 
 document.addEventListener(
   "DOMContentLoaded",
   function () {
+
+    restoreSession();
+
 
     trackEvent(
       "tabing_guhit_ready"
