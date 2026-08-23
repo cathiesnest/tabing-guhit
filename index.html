@@ -3,9 +3,9 @@
 
 <head>
 
-  <!-- =====================================================
-       GOOGLE ANALYTICS
-       ===================================================== -->
+  <!-- ============================= -->
+  <!-- GOOGLE ANALYTICS -->
+  <!-- ============================= -->
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QE91NYB3HP"></script>
 
@@ -22,10 +22,6 @@
   </script>
 
 
-  <!-- =====================================================
-       META
-       ===================================================== -->
-
   <meta charset="UTF-8">
 
   <meta
@@ -33,16 +29,19 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <meta
-    name="description"
-    content="Tabing Guhit is a practical guide helping Filipinos discover possible sideline paths, understand their skills, calculate rates, manage money, create invoices, and prepare for remote work."
-  >
-
   <title>
-    Tabing Guhit — Your Next Move
+    Tabing Guhit — Find Your Next Move
   </title>
 
-  <link rel="stylesheet" href="style.css">
+  <meta
+    name="description"
+    content="Tabing Guhit helps you discover possible work paths, understand your rate, and plan your next move."
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 
 </head>
 
@@ -50,36 +49,42 @@
 <body>
 
 
-  <!-- =====================================================
-       LOGIN / WELCOME SCREEN
-       ===================================================== -->
+<!-- =====================================================
+     WELCOME / LOGIN
+     ===================================================== -->
 
-  <section
-    id="authScreen"
-    class="hero"
-  >
+<section
+  id="loginScreen"
+  class="hero"
+>
 
-    <div class="container hero-content">
+  <div class="container hero-content">
 
-      <p class="eyebrow">
-        Calm guidance. Practical next steps.
-      </p>
+    <p class="eyebrow">
+      Calm guidance. Practical next steps.
+    </p>
 
-      <h1>
-        TABING GUHIT
-      </h1>
+    <h1>
+      TABING GUHIT
+    </h1>
 
-      <p class="hero-text">
-        A practical space to help you discover
-        your skills, explore possible work,
-        understand your rate, and plan your next move.
-      </p>
+    <p class="hero-text">
+      A practical space to help you discover your skills,
+      explore possible work, understand your rate,
+      and plan your next move.
+    </p>
 
 
-      <div class="assessment-card">
+    <div class="assessment-card">
+
+      <div class="section-heading">
+
+        <p class="eyebrow">
+          Welcome to Tabing Guhit
+        </p>
 
         <h2>
-          Welcome to Tabing Guhit
+          Your next move starts here.
         </h2>
 
         <p>
@@ -87,1860 +92,1284 @@
           or explore the app without an account.
         </p>
 
-
-        <!-- LOGIN -->
-
-        <form id="loginForm">
-
-          <label>
-            Email
-
-            <input
-              id="loginEmail"
-              type="email"
-              placeholder="you@example.com"
-              autocomplete="email"
-            >
-
-          </label>
+      </div>
 
 
-          <label>
-            Password
+      <!-- AUTH MESSAGE -->
 
-            <input
-              id="loginPassword"
-              type="password"
-              placeholder="Password"
-              autocomplete="current-password"
-            >
-
-          </label>
+      <div
+        id="authMessage"
+        class="auth-message"
+        hidden
+      ></div>
 
 
-          <button
-            type="submit"
-            class="primary-button"
+      <!-- LOGIN FORM -->
+
+      <form id="loginForm">
+
+        <label>
+
+          Email
+
+          <input
+            id="loginEmail"
+            type="email"
+            placeholder="you@example.com"
+            autocomplete="email"
+            required
           >
-            Log In
-          </button>
 
-        </form>
+        </label>
 
+
+        <label>
+
+          Password
+
+          <input
+            id="loginPassword"
+            type="password"
+            placeholder="Enter your password"
+            autocomplete="current-password"
+            required
+          >
+
+        </label>
+
+
+        <button
+          id="loginButton"
+          class="primary-button"
+          type="submit"
+        >
+          Log In
+        </button>
+
+      </form>
+
+
+      <div class="calculator-actions">
+
+        <button
+          id="createAccountButton"
+          class="secondary-button"
+          type="button"
+        >
+          Create Account
+        </button>
+
+
+        <button
+          id="continueDemo"
+          class="secondary-button"
+          type="button"
+        >
+          Continue as Demo
+        </button>
+
+      </div>
+
+
+      <p class="small-note">
+
+        Demo/local access only.
+
+        Tabing Guhit does not currently provide
+        secure production authentication.
+
+      </p>
+
+    </div>
+
+
+    <!-- =================================================
+         DEMO WALKTHROUGH
+         ================================================= -->
+
+    <div class="assessment-card">
+
+      <p class="eyebrow">
+        🎥 See How Tabing Guhit Works
+      </p>
+
+      <h2>
+        Watch a quick walkthrough
+      </h2>
+
+      <p>
+        Watch a short walkthrough to see how to find your
+        niche, calculate your rate, prepare your work tools,
+        and use Tabing Guhit.
+      </p>
+
+
+      <div
+        id="demoVideo"
+        class="niche-result-card"
+      >
+
+        <h3>
+          1–2 Minute Walkthrough
+        </h3>
+
+        <p>
+          Your walkthrough video will appear here.
+        </p>
+
+
+        <!--
+          When your actual video is ready,
+          replace this area with the YouTube,
+          Loom, or MP4 embed.
+        -->
 
         <div
-          id="loginMessage"
-          class="results-area"
-          hidden
-        ></div>
+          class="video-placeholder"
+          aria-label="Tabing Guhit demo video placeholder"
+        >
 
-
-        <div class="calculator-actions">
-
-          <button
-            id="createAccountButton"
-            type="button"
-            class="secondary-button"
-          >
-            Create Account
-          </button>
-
-
-          <button
-            id="demoLoginButton"
-            type="button"
-            class="secondary-button"
-          >
-            Continue as Demo
-          </button>
+          ▶
 
         </div>
+
+      </div>
+
+
+      <button
+        id="watchDemo"
+        class="primary-button"
+        type="button"
+      >
+        ▶ Watch Demo
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPLICATION DASHBOARD
+     ===================================================== -->
+
+<section
+  id="appDashboard"
+  hidden
+>
+
+
+  <!-- ============================= -->
+  <!-- HEADER -->
+  <!-- ============================= -->
+
+  <header class="site-header">
+
+    <div class="container header-inner">
+
+      <div class="brand">
+
+        <span class="brand-name">
+          TABING GUHIT
+        </span>
+
+        <span class="brand-tagline">
+          Your practical next move
+        </span>
+
+      </div>
+
+
+      <button
+        id="logoutButton"
+        class="secondary-button"
+        type="button"
+      >
+        Log Out
+      </button>
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+
+    <!-- =================================================
+         DASHBOARD WELCOME
+         ================================================= -->
+
+    <section class="hero">
+
+      <div class="container hero-content">
+
+        <p class="eyebrow">
+          Welcome back
+        </p>
+
+        <h1>
+          Hello, <span data-user-name>there</span>. ❤️
+        </h1>
+
+        <p class="hero-text">
+          Use Tabing Guhit to explore your skills,
+          understand your rate, and prepare for your
+          next opportunity.
+        </p>
 
 
         <p class="small-note">
 
-          Demo/local access only.
-          Tabing Guhit does not currently provide
-          secure production authentication.
+          Signed in as:
+
+          <strong data-user-email>
+            —
+          </strong>
 
         </p>
 
       </div>
 
-
-      <!-- DEMO VIDEO -->
-
-      <div class="upskill-card">
-
-        <p class="eyebrow">
-          New here?
-        </p>
-
-        <h2>
-          🎥 See How Tabing Guhit Works
-        </h2>
-
-        <p>
-          Watch a short walkthrough to see how to
-          find your niche, calculate your rate,
-          prepare your work tools, and use Tabing Guhit.
-        </p>
+    </section>
 
 
-        <div
-          id="demoVideoContainer"
-          class="results-area"
-        >
+    <!-- =================================================
+         DISCLAIMER
+         ================================================= -->
 
-          <div class="niche-result-card">
+    <section class="notice">
+
+      <div class="container">
+
+        <div class="notice-card">
+
+          <h2>
+            This tool does NOT guarantee you a job.
+          </h2>
+
+          <p>
+            Tabing Guhit is an informational and educational
+            guide designed to help you explore possible work
+            directions, understand your skills, and plan
+            practical next steps.
+          </p>
+
+          <p>
+            Your results do not guarantee employment,
+            clients, income, or job placement.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         QUICK TOOLS
+         ================================================= -->
+
+    <section class="features">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Your toolbox
+          </p>
+
+          <h2>
+            Start with what you need today.
+          </h2>
+
+          <p>
+            Explore your possible direction, understand
+            your value, and prepare your work tools.
+          </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+          <div class="feature-card">
+
+            <div class="feature-number">
+              01
+            </div>
 
             <h3>
-              1–2 Minute Walkthrough
+              Find Your Niche
             </h3>
 
             <p>
-              Your walkthrough video will appear here.
+              Answer five simple questions and discover
+              possible sideline paths.
             </p>
 
             <button
-              id="watchDemoButton"
-              type="button"
+              id="startAssessment"
               class="primary-button"
+              type="button"
             >
-              ▶ Watch Demo
+              🔎 Find My Niche
             </button>
 
           </div>
 
-        </div>
 
-      </div>
+          <div class="feature-card">
 
-    </div>
+            <div class="feature-number">
+              02
+            </div>
 
-  </section>
+            <h3>
+              Know Your Rate
+            </h3>
 
+            <p>
+              Estimate hourly, daily, weekly, monthly,
+              and annual earnings.
+            </p>
 
+            <a
+              class="secondary-button"
+              href="#rateCalculator"
+            >
+              Calculate My Rate
+            </a>
 
-  <!-- =====================================================
-       APP
-       ===================================================== -->
-
-  <div
-    id="appShell"
-    hidden
-  >
-
-
-    <!-- ===================================================
-         HEADER
-         =================================================== -->
-
-    <header class="site-header">
-
-      <div class="container header-inner">
-
-        <div class="brand">
-
-          <span class="brand-name">
-            TABING GUHIT
-          </span>
-
-          <span class="brand-tagline">
-            Your next move, one step at a time.
-          </span>
-
-        </div>
+          </div>
 
 
-        <div class="header-user">
+          <div class="feature-card">
 
-          <span id="headerUserName">
-            Guest
-          </span>
+            <div class="feature-number">
+              03
+            </div>
 
-          <button
-            id="logoutButton"
-            type="button"
-            class="secondary-button"
-          >
-            Log Out
-          </button>
+            <h3>
+              Prepare for Work
+            </h3>
+
+            <p>
+              Use your profile, portfolio, CV, cover letter,
+              invoice, and other practical tools.
+            </p>
+
+          </div>
+
 
         </div>
 
       </div>
 
-    </header>
+    </section>
 
 
+    <!-- =================================================
+         NICHE ASSESSMENT
+         ================================================= -->
 
-    <!-- ===================================================
-         DASHBOARD
-         =================================================== -->
+    <section
+      class="assessment-section"
+      id="nicheAssessment"
+    >
 
-    <main>
+      <div class="container">
 
-
-      <!-- =================================================
-           DASHBOARD WELCOME
-           ================================================= -->
-
-      <section class="hero">
-
-        <div class="container hero-content">
+        <div class="section-heading">
 
           <p class="eyebrow">
-            Welcome back
+            Discover your direction
           </p>
 
-          <h1>
-            Know your skills.
-            Know your value.
-            Know your next move.
-          </h1>
+          <h2>
+            Identify Your Niche
+          </h2>
 
-          <p class="hero-text">
-            Use the tools below to explore possible
-            sideline paths, calculate your rate,
-            prepare your documents, manage money,
-            and build your professional presence.
+          <p>
+            Answer five simple questions and discover
+            possible sideline paths that may fit you.
           </p>
 
+        </div>
 
-          <div class="feature-grid">
+
+        <div class="assessment-card">
+
+
+          <!-- QUESTION 1 -->
+
+          <div class="assessment-question">
+
+            <h3>
+              1. What are you already good at?
+            </h3>
+
+
+            <label>
+              <input
+                type="radio"
+                name="skill"
+                value="admin"
+              >
+              <span>
+                Admin / organizing
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="skill"
+                value="customer"
+              >
+              <span>
+                Customer service
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="skill"
+                value="writing"
+              >
+              <span>
+                Writing / communication
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="skill"
+                value="sales"
+              >
+              <span>
+                Sales / marketing
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="skill"
+                value="creative"
+              >
+              <span>
+                Design / creative work
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="skill"
+                value="teaching"
+              >
+              <span>
+                Teaching / coaching
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="skill"
+                value="tech"
+              >
+              <span>
+                Technology / AI
+              </span>
+            </label>
+
+          </div>
+
+
+          <!-- QUESTION 2 -->
+
+          <div class="assessment-question">
+
+            <h3>
+              2. What type of work interests you most?
+            </h3>
+
+
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="people"
+              >
+              <span>
+                Working with people
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="behind"
+              >
+              <span>
+                Working behind the scenes
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="creative"
+              >
+              <span>
+                Creative work
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="business"
+              >
+              <span>
+                Online business
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="teaching"
+              >
+              <span>
+                Teaching / helping others
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="interest"
+                value="technology"
+              >
+              <span>
+                Technology / AI
+              </span>
+            </label>
+
+          </div>
+
+
+          <!-- QUESTION 3 -->
+
+          <div class="assessment-question">
+
+            <h3>
+              3. How much time can you give to a sideline?
+            </h3>
+
+
+            <label>
+              <input
+                type="radio"
+                name="time"
+                value="small"
+              >
+              <span>
+                1–5 hours per week
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="time"
+                value="medium"
+              >
+              <span>
+                5–10 hours per week
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="time"
+                value="large"
+              >
+              <span>
+                10–20 hours per week
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="time"
+                value="full"
+              >
+              <span>
+                20+ hours per week
+              </span>
+            </label>
+
+          </div>
+
+
+          <!-- QUESTION 4 -->
+
+          <div class="assessment-question">
+
+            <h3>
+              4. What is your main goal?
+            </h3>
+
+
+            <label>
+              <input
+                type="radio"
+                name="goal"
+                value="income"
+              >
+              <span>
+                Earn extra income
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="goal"
+                value="remote"
+              >
+              <span>
+                Find remote work
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="goal"
+                value="freelance"
+              >
+              <span>
+                Build a freelance career
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="goal"
+                value="business"
+              >
+              <span>
+                Start a small online business
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="goal"
+                value="learn"
+              >
+              <span>
+                Learn a new skill
+              </span>
+            </label>
+
+          </div>
+
+
+          <!-- QUESTION 5 -->
+
+          <div class="assessment-question">
+
+            <h3>
+              5. What best describes your starting point?
+            </h3>
+
+
+            <label>
+              <input
+                type="radio"
+                name="startingPoint"
+                value="experienced"
+              >
+              <span>
+                I already have skills I can sell
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="startingPoint"
+                value="experience"
+              >
+              <span>
+                I have experience but need direction
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="startingPoint"
+                value="beginner"
+              >
+              <span>
+                I am willing to learn from zero
+              </span>
+            </label>
+
+
+            <label>
+              <input
+                type="radio"
+                name="startingPoint"
+                value="hobby"
+              >
+              <span>
+                I want to turn my hobby into income
+              </span>
+            </label>
+
+          </div>
+
+
+          <!-- BUTTONS -->
+
+          <div class="assessment-actions">
 
             <button
+              id="generateNiche"
+              class="primary-button"
               type="button"
-              class="feature-card dashboard-link"
-              data-target="nicheAssessment"
             >
-
-              <div class="feature-number">
-                01
-              </div>
-
-              <h3>
-                Find Your Niche
-              </h3>
-
-              <p>
-                Discover possible sideline directions
-                based on your skills and goals.
-              </p>
-
+              🔎 Show My Possible Niches
             </button>
 
 
             <button
+              id="clearAssessment"
+              class="secondary-button"
               type="button"
-              class="feature-card dashboard-link"
-              data-target="rateCalculator"
             >
-
-              <div class="feature-number">
-                02
-              </div>
-
-              <h3>
-                Know Your Rate
-              </h3>
-
-              <p>
-                Estimate your hourly, daily, weekly,
-                monthly, and annual earnings.
-              </p>
-
-            </button>
-
-
-            <button
-              type="button"
-              class="feature-card dashboard-link"
-              data-target="moneyMatters"
-            >
-
-              <div class="feature-number">
-                03
-              </div>
-
-              <h3>
-                Money Matters
-              </h3>
-
-              <p>
-                Create a simple income and expense plan.
-              </p>
-
-            </button>
-
-
-            <button
-              type="button"
-              class="feature-card dashboard-link"
-              data-target="invoiceTool"
-            >
-
-              <div class="feature-number">
-                04
-              </div>
-
-              <h3>
-                Create an Invoice
-              </h3>
-
-              <p>
-                Calculate work amounts and prepare
-                a simple professional invoice.
-              </p>
-
-            </button>
-
-
-            <button
-              type="button"
-              class="feature-card dashboard-link"
-              data-target="portfolioTool"
-            >
-
-              <div class="feature-number">
-                05
-              </div>
-
-              <h3>
-                Digital Portfolio
-              </h3>
-
-              <p>
-                Prepare a simple professional profile
-                you can share with potential clients.
-              </p>
-
-            </button>
-
-
-            <button
-              type="button"
-              class="feature-card dashboard-link"
-              data-target="profileSettings"
-            >
-
-              <div class="feature-number">
-                06
-              </div>
-
-              <h3>
-                Profile & Settings
-              </h3>
-
-              <p>
-                Manage your profile and preferences.
-              </p>
-
+              Clear
             </button>
 
           </div>
 
-        </div>
 
-      </section>
+          <!-- RESULTS -->
 
-
-
-      <!-- =================================================
-           DISCLAIMER
-           ================================================= -->
-
-      <section class="notice">
-
-        <div class="container">
-
-          <div class="notice-card">
-
-            <h2>
-              This tool does NOT guarantee you a job.
-            </h2>
-
-            <p>
-              Tabing Guhit is an informational and
-              educational guide designed to help you
-              explore possible work and income paths.
-            </p>
-
-            <p>
-              Your results do not guarantee employment,
-              clients, income, or job placement.
-            </p>
-
-          </div>
+          <div
+            id="nicheResults"
+            class="results-area"
+            hidden
+          ></div>
 
         </div>
 
-      </section>
+      </div>
 
+    </section>
 
 
-      <!-- =================================================
-           FIND YOUR NICHE
-           ================================================= -->
+    <!-- =================================================
+         RATE CALCULATOR
+         ================================================= -->
 
-      <section
-        class="assessment-section"
-        id="nicheAssessment"
-      >
+    <section
+      class="calculator-section"
+      id="rateCalculator"
+    >
 
-        <div class="container">
+      <div class="container">
 
-          <div class="section-heading">
+        <div class="section-heading">
 
-            <p class="eyebrow">
-              Discover your direction
-            </p>
+          <p class="eyebrow">
+            Know your rate
+          </p>
 
-            <h2>
-              Find Your Niche
-            </h2>
+          <h2>
+            Global Currency & Rate Calculator
+          </h2>
 
-            <p>
-              Answer five simple questions and discover
-              possible sideline paths that may fit you.
-            </p>
-
-          </div>
-
-
-          <div class="assessment-card">
-
-
-            <!-- QUESTION 1 -->
-
-            <div class="assessment-question">
-
-              <h3>
-                1. What are you already good at?
-              </h3>
-
-              <label>
-                <input type="radio" name="skill" value="admin">
-                <span>Admin / organizing</span>
-              </label>
-
-              <label>
-                <input type="radio" name="skill" value="customer">
-                <span>Customer service</span>
-              </label>
-
-              <label>
-                <input type="radio" name="skill" value="writing">
-                <span>Writing / communication</span>
-              </label>
-
-              <label>
-                <input type="radio" name="skill" value="sales">
-                <span>Sales / marketing</span>
-              </label>
-
-              <label>
-                <input type="radio" name="skill" value="creative">
-                <span>Design / creative work</span>
-              </label>
-
-              <label>
-                <input type="radio" name="skill" value="teaching">
-                <span>Teaching / coaching</span>
-              </label>
-
-              <label>
-                <input type="radio" name="skill" value="tech">
-                <span>Technology / AI</span>
-              </label>
-
-            </div>
-
-
-
-            <!-- QUESTION 2 -->
-
-            <div class="assessment-question">
-
-              <h3>
-                2. What type of work interests you most?
-              </h3>
-
-              <label>
-                <input type="radio" name="interest" value="people">
-                <span>Working with people</span>
-              </label>
-
-              <label>
-                <input type="radio" name="interest" value="behind">
-                <span>Working behind the scenes</span>
-              </label>
-
-              <label>
-                <input type="radio" name="interest" value="creative">
-                <span>Creative work</span>
-              </label>
-
-              <label>
-                <input type="radio" name="interest" value="business">
-                <span>Online business</span>
-              </label>
-
-              <label>
-                <input type="radio" name="interest" value="teaching">
-                <span>Teaching / helping others</span>
-              </label>
-
-              <label>
-                <input type="radio" name="interest" value="technology">
-                <span>Technology / AI</span>
-              </label>
-
-            </div>
-
-
-
-            <!-- QUESTION 3 -->
-
-            <div class="assessment-question">
-
-              <h3>
-                3. How much time can you give to a sideline?
-              </h3>
-
-              <label>
-                <input type="radio" name="time" value="small">
-                <span>1–5 hours per week</span>
-              </label>
-
-              <label>
-                <input type="radio" name="time" value="medium">
-                <span>5–10 hours per week</span>
-              </label>
-
-              <label>
-                <input type="radio" name="time" value="large">
-                <span>10–20 hours per week</span>
-              </label>
-
-              <label>
-                <input type="radio" name="time" value="full">
-                <span>20+ hours per week</span>
-              </label>
-
-            </div>
-
-
-
-            <!-- QUESTION 4 -->
-
-            <div class="assessment-question">
-
-              <h3>
-                4. What is your main goal?
-              </h3>
-
-              <label>
-                <input type="radio" name="goal" value="income">
-                <span>Earn extra income</span>
-              </label>
-
-              <label>
-                <input type="radio" name="goal" value="remote">
-                <span>Find remote work</span>
-              </label>
-
-              <label>
-                <input type="radio" name="goal" value="freelance">
-                <span>Build a freelance career</span>
-              </label>
-
-              <label>
-                <input type="radio" name="goal" value="business">
-                <span>Start a small online business</span>
-              </label>
-
-              <label>
-                <input type="radio" name="goal" value="learn">
-                <span>Learn a new skill</span>
-              </label>
-
-            </div>
-
-
-
-            <!-- QUESTION 5 -->
-
-            <div class="assessment-question">
-
-              <h3>
-                5. What best describes your starting point?
-              </h3>
-
-              <label>
-                <input type="radio" name="startingPoint" value="experienced">
-                <span>I already have skills I can sell</span>
-              </label>
-
-              <label>
-                <input type="radio" name="startingPoint" value="experience">
-                <span>I have experience but need direction</span>
-              </label>
-
-              <label>
-                <input type="radio" name="startingPoint" value="beginner">
-                <span>I am willing to learn from zero</span>
-              </label>
-
-              <label>
-                <input type="radio" name="startingPoint" value="hobby">
-                <span>I want to turn my hobby into income</span>
-              </label>
-
-            </div>
-
-
-
-            <div class="assessment-actions">
-
-              <button
-                id="generateNiche"
-                class="primary-button"
-                type="button"
-              >
-                🔎 Show My Possible Niches
-              </button>
-
-              <button
-                id="clearAssessment"
-                class="secondary-button"
-                type="button"
-              >
-                Clear
-              </button>
-
-            </div>
-
-
-            <div
-              id="nicheResults"
-              class="results-area"
-              hidden
-            ></div>
-
-          </div>
+          <p>
+            Enter your hourly rate, choose your currencies,
+            and see estimated earnings automatically.
+          </p>
 
         </div>
 
-      </section>
 
+        <div class="calculator-card">
 
 
-      <!-- =================================================
-           RATE CALCULATOR
-           ================================================= -->
-
-      <section
-        class="calculator-section"
-        id="rateCalculator"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Know your rate
-            </p>
-
-            <h2>
-              Global Currency & Rate Calculator
-            </h2>
-
-            <p>
-              Enter your hourly rate and see estimated
-              earnings in another currency.
-            </p>
-
-          </div>
-
-
-          <div class="calculator-card">
-
-            <div class="calculator-grid">
-
-
-              <label>
-                Hourly rate
-
-                <input
-                  id="hourlyRate"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="Example: 6.50"
-                >
-              </label>
-
-
-              <label>
-                Starting currency
-
-                <select id="fromCurrency">
-
-                  <option value="USD">
-                    USD — US Dollar
-                  </option>
-
-                  <option value="PHP">
-                    PHP — Philippine Peso
-                  </option>
-
-                  <option value="CAD">
-                    CAD — Canadian Dollar
-                  </option>
-
-                  <option value="AUD">
-                    AUD — Australian Dollar
-                  </option>
-
-                  <option value="GBP">
-                    GBP — British Pound
-                  </option>
-
-                  <option value="EUR">
-                    EUR — Euro
-                  </option>
-
-                  <option value="SGD">
-                    SGD — Singapore Dollar
-                  </option>
-
-                  <option value="AED">
-                    AED — UAE Dirham
-                  </option>
-
-                  <option value="SAR">
-                    SAR — Saudi Riyal
-                  </option>
-
-                  <option value="QAR">
-                    QAR — Qatari Riyal
-                  </option>
-
-                  <option value="JPY">
-                    JPY — Japanese Yen
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-                Target currency
-
-                <select id="toCurrency">
-
-                  <option value="PHP">
-                    PHP — Philippine Peso
-                  </option>
-
-                  <option value="USD">
-                    USD — US Dollar
-                  </option>
-
-                  <option value="CAD">
-                    CAD — Canadian Dollar
-                  </option>
-
-                  <option value="AUD">
-                    AUD — Australian Dollar
-                  </option>
-
-                  <option value="GBP">
-                    GBP — British Pound
-                  </option>
-
-                  <option value="EUR">
-                    EUR — Euro
-                  </option>
-
-                  <option value="SGD">
-                    SGD — Singapore Dollar
-                  </option>
-
-                  <option value="AED">
-                    AED — UAE Dirham
-                  </option>
-
-                  <option value="SAR">
-                    SAR — Saudi Riyal
-                  </option>
-
-                  <option value="QAR">
-                    QAR — Qatari Riyal
-                  </option>
-
-                  <option value="JPY">
-                    JPY — Japanese Yen
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-                Hours per day
-
-                <input
-                  id="hoursPerDay"
-                  type="number"
-                  min="1"
-                  value="8"
-                >
-              </label>
-
-
-              <label>
-                Days per week
-
-                <input
-                  id="daysPerWeek"
-                  type="number"
-                  min="1"
-                  value="5"
-                >
-              </label>
-
-
-              <label>
-                Working months / year
-
-                <input
-                  id="monthsPerYear"
-                  type="number"
-                  min="1"
-                  max="12"
-                  value="12"
-                >
-              </label>
-
-
-            </div>
-
-
-            <div class="calculator-actions">
-
-              <button
-                id="calculateRate"
-                class="primary-button"
-                type="button"
-              >
-                Calculate My Rate
-              </button>
-
-              <button
-                id="clearCalculator"
-                class="secondary-button"
-                type="button"
-              >
-                Clear
-              </button>
-
-            </div>
-
-
-            <div
-              id="calculatorResults"
-              class="results-area"
-            >
-
-              <p class="results-placeholder">
-                Enter your hourly rate to see
-                your estimated earnings.
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           JOBS
-           ================================================= -->
-
-      <section
-        class="features"
-        id="jobsTool"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Explore opportunities
-            </p>
-
-            <h2>
-              Jobs
-            </h2>
-
-            <p>
-              Use the job resources you've already connected
-              to Tabing Guhit.
-            </p>
-
-          </div>
-
-
-          <div class="feature-grid">
-
-            <div class="feature-card">
-
-              <div class="feature-number">
-                JOB
-              </div>
-
-              <h3>
-                Remote Work Resources
-              </h3>
-
-              <p>
-                Keep this section connected to your
-                existing job resources.
-              </p>
-
-            </div>
-
-
-            <div class="feature-card">
-
-              <div class="feature-number">
-                TIP
-              </div>
-
-              <h3>
-                Stay Safe
-              </h3>
-
-              <p>
-                Never pay an employer simply to apply
-                or receive a job offer.
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           DIGITAL PORTFOLIO
-           ================================================= -->
-
-      <section
-        class="calculator-section"
-        id="portfolioTool"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Present yourself professionally
-            </p>
-
-            <h2>
-              Digital Portfolio
-            </h2>
-
-            <p>
-              Prepare your professional information
-              in one simple place.
-            </p>
-
-          </div>
-
-
-          <div class="calculator-card">
-
-            <div class="calculator-grid">
-
-              <label>
-                Name
-
-                <input
-                  id="portfolioName"
-                  type="text"
-                  placeholder="Your name"
-                >
-              </label>
-
-
-              <label>
-                Email
-
-                <input
-                  id="portfolioEmail"
-                  type="email"
-                  placeholder="you@example.com"
-                >
-              </label>
-
-
-              <label>
-                Contact information
-
-                <input
-                  id="portfolioContact"
-                  type="text"
-                  placeholder="Phone / WhatsApp / Telegram"
-                >
-              </label>
-
-
-              <label>
-                Professional title
-
-                <input
-                  id="portfolioTitle"
-                  type="text"
-                  placeholder="Executive Virtual Assistant"
-                >
-              </label>
-
-            </div>
-
-
-            <div class="calculator-actions">
-
-              <button
-                id="portfolioSaveButton"
-                class="primary-button"
-                type="button"
-              >
-                Save Portfolio
-              </button>
-
-              <button
-                id="portfolioCopyButton"
-                class="secondary-button"
-                type="button"
-              >
-                Copy Link
-              </button>
-
-              <button
-                id="portfolioShareButton"
-                class="secondary-button"
-                type="button"
-              >
-                Share
-              </button>
-
-            </div>
-
-
-            <div
-              id="portfolioResults"
-              class="results-area"
-            ></div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           CV + COVER LETTER
-           ================================================= -->
-
-      <section
-        class="features"
-        id="documentsTool"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Application tools
-            </p>
-
-            <h2>
-              CV + Cover Letter
-            </h2>
-
-            <p>
-              Keep your professional documents organized
-              and ready to share.
-            </p>
-
-          </div>
-
-
-          <div class="feature-grid">
-
-            <div class="feature-card">
-
-              <div class="feature-number">
-                CV
-              </div>
-
-              <h3>
-                CV
-              </h3>
-
-              <p>
-                Prepare your CV and keep a shareable
-                version ready.
-              </p>
-
-              <button
-                id="cvCopyButton"
-                type="button"
-                class="secondary-button"
-              >
-                Copy Link
-              </button>
-
-            </div>
-
-
-            <div class="feature-card">
-
-              <div class="feature-number">
-                CL
-              </div>
-
-              <h3>
-                Cover Letter
-              </h3>
-
-              <p>
-                Keep a professional cover-letter draft
-                ready to customize.
-              </p>
-
-              <button
-                id="coverLetterCopyButton"
-                type="button"
-                class="secondary-button"
-              >
-                Copy Link
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           MONEY MATTERS
-           ================================================= -->
-
-      <section
-        class="calculator-section"
-        id="moneyMatters"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Plan your money
-            </p>
-
-            <h2>
-              Money Matters
-            </h2>
-
-            <p>
-              Estimate your monthly income,
-              expenses, and remaining amount.
-            </p>
-
-          </div>
-
-
-          <div class="calculator-card">
-
-            <div class="calculator-grid">
-
-              <label>
-                Monthly income
-
-                <input
-                  id="budgetIncome"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0"
-                >
-              </label>
-
-
-              <label>
-                Housing
-
-                <input
-                  id="budgetHousing"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0"
-                >
-              </label>
-
-
-              <label>
-                Food
-
-                <input
-                  id="budgetFood"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0"
-                >
-              </label>
-
-
-              <label>
-                Utilities
-
-                <input
-                  id="budgetUtilities"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0"
-                >
-              </label>
-
-
-              <label>
-                Transportation
-
-                <input
-                  id="budgetTransport"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0"
-                >
-              </label>
-
-
-              <label>
-                Other expenses
-
-                <input
-                  id="budgetOther"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0"
-                >
-              </label>
-
-            </div>
-
-
-            <div class="calculator-actions">
-
-              <button
-                id="budgetCalculate"
-                class="primary-button"
-                type="button"
-              >
-                Calculate
-              </button>
-
-              <button
-                id="budgetClear"
-                class="secondary-button"
-                type="button"
-              >
-                Clear
-              </button>
-
-            </div>
-
-
-            <div
-              id="budgetResults"
-              class="results-area"
-            ></div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           TIME ZONE
-           ================================================= -->
-
-      <section
-        class="features"
-        id="timeZoneTool"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Work globally
-            </p>
-
-            <h2>
-              Time Zone Converter
-            </h2>
-
-            <p>
-              Convert a meeting time between two locations.
-            </p>
-
-          </div>
-
-
-          <div class="calculator-card">
-
-            <div class="calculator-grid">
-
-              <label>
-                Date
-
-                <input
-                  id="timezoneDate"
-                  type="date"
-                >
-              </label>
-
-
-              <label>
-                Time
-
-                <input
-                  id="timezoneTime"
-                  type="time"
-                >
-              </label>
-
-
-              <label>
-                From timezone
-
-                <select id="timezoneFrom">
-
-                  <option value="Asia/Manila">
-                    Manila
-                  </option>
-
-                  <option value="America/New_York">
-                    New York
-                  </option>
-
-                  <option value="America/Los_Angeles">
-                    Los Angeles
-                  </option>
-
-                  <option value="Europe/London">
-                    London
-                  </option>
-
-                  <option value="Asia/Dubai">
-                    Dubai
-                  </option>
-
-                  <option value="Asia/Riyadh">
-                    Riyadh
-                  </option>
-
-                  <option value="Asia/Singapore">
-                    Singapore
-                  </option>
-
-                  <option value="Australia/Sydney">
-                    Sydney
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-                To timezone
-
-                <select id="timezoneTo">
-
-                  <option value="America/New_York">
-                    New York
-                  </option>
-
-                  <option value="America/Los_Angeles">
-                    Los Angeles
-                  </option>
-
-                  <option value="Europe/London">
-                    London
-                  </option>
-
-                  <option value="Asia/Manila">
-                    Manila
-                  </option>
-
-                  <option value="Asia/Dubai">
-                    Dubai
-                  </option>
-
-                  <option value="Asia/Riyadh">
-                    Riyadh
-                  </option>
-
-                  <option value="Asia/Singapore">
-                    Singapore
-                  </option>
-
-                  <option value="Australia/Sydney">
-                    Sydney
-                  </option>
-
-                </select>
-
-              </label>
-
-            </div>
-
-
-            <div class="calculator-actions">
-
-              <button
-                id="timezoneConvert"
-                class="primary-button"
-                type="button"
-              >
-                Convert
-              </button>
-
-              <button
-                id="timezoneClear"
-                class="secondary-button"
-                type="button"
-              >
-                Clear
-              </button>
-
-            </div>
-
-
-            <div
-              id="timezoneResults"
-              class="results-area"
-            ></div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           INVOICE
-           ================================================= -->
-
-      <section
-        class="calculator-section"
-        id="invoiceTool"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Get paid professionally
-            </p>
-
-            <h2>
-              Invoice Calculator
-            </h2>
-
-            <p>
-              Calculate your work amount and additional
-              work before preparing your invoice.
-            </p>
-
-          </div>
-
-
-          <div class="calculator-card">
-
-            <div class="calculator-grid">
-
-
-              <label>
-                Client name
-
-                <input
-                  id="invoiceClient"
-                  type="text"
-                  placeholder="Client name"
-                >
-              </label>
-
-
-              <label>
-                Currency
-
-                <select id="invoiceCurrency">
-
-                  <option value="USD">
-                    USD
-                  </option>
-
-                  <option value="PHP">
-                    PHP
-                  </option>
-
-                  <option value="GBP">
-                    GBP
-                  </option>
-
-                  <option value="EUR">
-                    EUR
-                  </option>
-
-                  <option value="AED">
-                    AED
-                  </option>
-
-                  <option value="SAR">
-                    SAR
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-                Billing type
-
-                <select id="invoiceBillingType">
-
-                  <option value="hourly">
-                    Hourly
-                  </option>
-
-                  <option value="daily">
-                    Daily
-                  </option>
-
-                  <option value="weekly">
-                    Weekly
-                  </option>
-
-                  <option value="monthly">
-                    Monthly
-                  </option>
-
-                  <option value="annual">
-                    Annual
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-                Base amount
-
-                <input
-                  id="invoiceBaseAmount"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  placeholder="0"
-                >
-
-              </label>
-
-
-              <label>
-                Additional work
-
-                <input
-                  id="invoiceAdditionalWork"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value="0"
-                >
-
-              </label>
-
-
-              <label>
-                Overtime / additional hours
-
-                <input
-                  id="invoiceOvertime"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value="0"
-                >
-
-              </label>
-
-
-              <label>
-                Overtime rate
-
-                <input
-                  id="invoiceOvertimeRate"
-                  type="number"
-                  min="0"
-                  step="0.01"
-                  value="0"
-                >
-
-              </label>
-
-            </div>
-
-
-            <div class="calculator-actions">
-
-              <button
-                id="invoiceCalculate"
-                class="primary-button"
-                type="button"
-              >
-                Calculate Invoice
-              </button>
-
-              <button
-                id="invoiceAddWork"
-                class="secondary-button"
-                type="button"
-              >
-                + Add Additional Work
-              </button>
-
-            </div>
-
-
-            <div
-              id="invoiceResults"
-              class="results-area"
-            ></div>
-
-
-            <div class="calculator-actions">
-
-              <button
-                id="invoicePdf"
-                class="secondary-button"
-                type="button"
-              >
-                PDF
-              </button>
-
-              <button
-                id="invoiceCopy"
-                class="secondary-button"
-                type="button"
-              >
-                Copy Link
-              </button>
-
-              <button
-                id="invoiceShare"
-                class="secondary-button"
-                type="button"
-              >
-                Share
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           PROFILE & SETTINGS
-           ================================================= -->
-
-      <section
-        class="features"
-        id="profileSettings"
-      >
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Your information
-            </p>
-
-            <h2>
-              Profile & Settings
-            </h2>
-
-            <p>
-              Keep your professional information
-              ready for your work tools.
-            </p>
-
-          </div>
-
-
-          <div class="calculator-card">
-
-            <div class="calculator-grid">
-
-
-              <label>
-                Profile photo
-
-                <input
-                  id="profilePhoto"
-                  type="file"
-                  accept="image/*"
-                >
-
-              </label>
-
-
-              <label>
-                Name
-
-                <input
-                  id="profileName"
-                  type="text"
-                  placeholder="Your name"
-                >
-
-              </label>
-
-
-              <label>
-                Email
-
-                <input
-                  id="profileEmail"
-                  type="email"
-                  placeholder="you@example.com"
-                >
-
-              </label>
-
-
-              <label>
-                Contact information
-
-                <input
-                  id="profileContact"
-                  type="text"
-                  placeholder="Phone / messaging app"
-                >
-
-              </label>
-
-
-              <label>
-                Date of birth
-
-                <input
-                  id="profileDob"
-                  type="date"
-                >
-
-              </label>
-
-
-              <label>
-                Gender
-
-                <select id="profileGender">
-
-                  <option value="">
-                    Prefer not to say
-                  </option>
-
-                  <option value="female">
-                    Female
-                  </option>
-
-                  <option value="male">
-                    Male
-                  </option>
-
-                </select>
-
-              </label>
-
-
-              <label>
-                Location
-
-                <input
-                  id="profileLocation"
-                  type="text"
-                  placeholder="City / Country"
-                >
-
-              </label>
-
-            </div>
+          <div class="calculator-grid">
 
 
             <label>
 
+              Hourly rate
+
               <input
-                id="updatesOptIn"
+                id="hourlyRate"
+                type="number"
+                min="0"
+                step="0.01"
+                placeholder="Example: 6.50"
+              >
+
+            </label>
+
+
+            <label>
+
+              Starting currency
+
+              <select id="fromCurrency">
+
+                <option value="USD">
+                  USD — US Dollar
+                </option>
+
+                <option value="PHP">
+                  PHP — Philippine Peso
+                </option>
+
+                <option value="CAD">
+                  CAD — Canadian Dollar
+                </option>
+
+                <option value="AUD">
+                  AUD — Australian Dollar
+                </option>
+
+                <option value="GBP">
+                  GBP — British Pound
+                </option>
+
+                <option value="EUR">
+                  EUR — Euro
+                </option>
+
+                <option value="SGD">
+                  SGD — Singapore Dollar
+                </option>
+
+                <option value="AED">
+                  AED — UAE Dirham
+                </option>
+
+                <option value="SAR">
+                  SAR — Saudi Riyal
+                </option>
+
+                <option value="QAR">
+                  QAR — Qatari Riyal
+                </option>
+
+                <option value="JPY">
+                  JPY — Japanese Yen
+                </option>
+
+              </select>
+
+            </label>
+
+
+            <label>
+
+              Target currency
+
+              <select id="toCurrency">
+
+                <option value="PHP">
+                  PHP — Philippine Peso
+                </option>
+
+                <option value="USD">
+                  USD — US Dollar
+                </option>
+
+                <option value="CAD">
+                  CAD — Canadian Dollar
+                </option>
+
+                <option value="AUD">
+                  AUD — Australian Dollar
+                </option>
+
+                <option value="GBP">
+                  GBP — British Pound
+                </option>
+
+                <option value="EUR">
+                  EUR — Euro
+                </option>
+
+                <option value="SGD">
+                  SGD — Singapore Dollar
+                </option>
+
+                <option value="AED">
+                  AED — UAE Dirham
+                </option>
+
+                <option value="SAR">
+                  SAR — Saudi Riyal
+                </option>
+
+                <option value="QAR">
+                  QAR — Qatari Riyal
+                </option>
+
+                <option value="JPY">
+                  JPY — Japanese Yen
+                </option>
+
+              </select>
+
+            </label>
+
+
+            <label>
+
+              Hours per day
+
+              <input
+                id="hoursPerDay"
+                type="number"
+                min="1"
+                value="8"
+              >
+
+            </label>
+
+
+            <label>
+
+              Days per week
+
+              <input
+                id="daysPerWeek"
+                type="number"
+                min="1"
+                value="5"
+              >
+
+            </label>
+
+
+            <label>
+
+              Working months / year
+
+              <input
+                id="monthsPerYear"
+                type="number"
+                min="1"
+                max="12"
+                value="12"
+              >
+
+            </label>
+
+
+          </div>
+
+
+          <div class="calculator-actions">
+
+            <button
+              id="calculateRate"
+              class="primary-button"
+              type="button"
+            >
+              Calculate
+            </button>
+
+
+            <button
+              id="clearCalculator"
+              class="secondary-button"
+              type="button"
+            >
+              Clear
+            </button>
+
+          </div>
+
+
+          <div
+            id="calculatorResults"
+            class="results-area"
+          >
+
+            <p class="results-placeholder">
+              Enter your hourly rate to see
+              your estimated earnings.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         JOBS
+         ================================================= -->
+
+    <section class="features">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Explore opportunities
+          </p>
+
+          <h2>
+            Jobs
+          </h2>
+
+          <p>
+            Keep your existing job-search tools here.
+            This section is reserved for your current
+            Jobs feature.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         DIGITAL PORTFOLIO
+         ================================================= -->
+
+    <section class="features">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Show your work
+          </p>
+
+          <h2>
+            Digital Portfolio
+          </h2>
+
+          <p>
+            Your portfolio area can contain your photo,
+            contact information, PDF, copy link, and share
+            functions.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         CV + COVER LETTER
+         ================================================= -->
+
+    <section class="features">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Prepare to apply
+          </p>
+
+          <h2>
+            CV + Cover Letter
+          </h2>
+
+          <p>
+            Keep your existing CV and cover-letter tools
+            available from the dashboard.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         MONEY MATTERS
+         ================================================= -->
+
+    <section class="calculator-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Money Matters
+          </p>
+
+          <h2>
+            Plan your money.
+          </h2>
+
+          <p>
+            Your budget calculator can live here.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         TIME ZONE
+         ================================================= -->
+
+    <section class="features">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Work globally
+          </p>
+
+          <h2>
+            Time Zone
+          </h2>
+
+          <p>
+            Your timezone conversion tool can live here.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         INVOICE
+         ================================================= -->
+
+    <section class="calculator-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Get paid professionally
+          </p>
+
+          <h2>
+            Invoice
+          </h2>
+
+          <p>
+            Your invoice builder can live here with
+            additional work and overtime support.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         SETTINGS & PROFILE
+         ================================================= -->
+
+    <section class="features">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Your profile
+          </p>
+
+          <h2>
+            Settings & Profile
+          </h2>
+
+          <p>
+            Manage your name, email, contact information,
+            location, profile photo, and preferences.
+          </p>
+
+
+          <p class="small-note">
+
+            <label>
+
+              <input
                 type="checkbox"
+                id="careerUpdates"
               >
 
               Yes, I'd like to receive useful career,
@@ -1948,284 +1377,222 @@
 
             </label>
 
-
-            <div class="calculator-actions">
-
-              <button
-                id="profileSave"
-                type="button"
-                class="primary-button"
-              >
-                Save Profile
-              </button>
-
-              <button
-                id="profileClear"
-                type="button"
-                class="secondary-button"
-              >
-                Clear
-              </button>
-
-            </div>
-
-
-            <div
-              id="profileResults"
-              class="results-area"
-            ></div>
-
-          </div>
+          </p>
 
         </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           ABOUT & LEGAL
-           ================================================= -->
-
-      <section
-        class="notice"
-        id="aboutLegal"
-      >
-
-        <div class="container">
-
-          <div class="notice-card">
-
-            <p class="eyebrow">
-              About & Legal
-            </p>
-
-            <h2>
-              About Tabing Guhit
-            </h2>
-
-            <p>
-              Tabing Guhit is designed as a practical,
-              educational guide for people exploring
-              work, skills, sideline opportunities,
-              and personal income planning.
-            </p>
-
-
-            <h3>
-              Privacy
-            </h3>
-
-            <p>
-              Tabing Guhit is currently a static GitHub Pages
-              application. Demo profile information is stored
-              locally in the user's browser and is not intended
-              to function as a secure account system.
-            </p>
-
-
-            <h3>
-              Disclaimer
-            </h3>
-
-            <p>
-              Tabing Guhit does not guarantee employment,
-              clients, income, job placement, or financial results.
-            </p>
-
-            <p>
-              Currency calculations, budgeting tools,
-              time conversions, and invoice calculations
-              are provided for informational and planning purposes.
-            </p>
-
-
-            <label>
-
-              <input
-                id="legalAcknowledgement"
-                type="checkbox"
-              >
-
-              I understand and acknowledge.
-
-            </label>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           SAFETY
-           ================================================= -->
-
-      <section class="safety-section">
-
-        <div class="container">
-
-          <div class="section-heading">
-
-            <p class="eyebrow">
-              Before you apply
-            </p>
-
-            <h2>
-              Protect yourself. Know your value.
-            </h2>
-
-          </div>
-
-
-          <div class="safety-grid">
-
-
-            <div class="safety-card">
-
-              <h3>
-                🚩 Never pay to get a job.
-              </h3>
-
-              <p>
-                A legitimate remote job should not require
-                a joining fee, recruitment fee, application fee,
-                or payment simply to be hired.
-              </p>
-
-              <strong>
-                Verify the employer independently.
-              </strong>
-
-            </div>
-
-
-            <div class="safety-card">
-
-              <h3>
-                Know your value.
-              </h3>
-
-              <p>
-                Don't automatically accept a low-ball offer
-                just because you need a sideline.
-                Research reasonable market rates and negotiate
-                professionally.
-              </p>
-
-              <strong>
-                Starting small is okay.
-                Undervaluing yourself is not.
-              </strong>
-
-            </div>
-
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-
-      <!-- =================================================
-           UPSKILL / ALISON
-           ================================================= -->
-
-      <section class="upskill-section">
-
-        <div class="container">
-
-          <div class="upskill-card">
-
-            <p class="eyebrow">
-              Keep learning
-            </p>
-
-            <h2>
-              Build skills while you explore.
-            </h2>
-
-            <p>
-              Not sure what skill to learn next?
-              Explore free courses through Alison and
-              find opportunities to improve your knowledge.
-            </p>
-
-
-            <a
-              id="alisonCoursesLink"
-              class="secondary-button"
-              href="https://alison.com/certificate-courses?utm_source=alison_user&utm_medium=affiliate&utm_campaign=42404117"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Explore Free Courses
-            </a>
-
-
-            <p class="affiliate-note">
-              Alison is an external learning platform.
-              Tabing Guhit does not guarantee course outcomes,
-              employment, or income.
-            </p>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-    </main>
-
-
-
-    <!-- ===================================================
-         FOOTER
-         =================================================== -->
-
-    <footer class="site-footer">
-
-      <div class="container">
-
-        <p>
-          <strong>TABING GUHIT</strong>
-        </p>
-
-        <p>
-          A calm place to figure out your next move.
-        </p>
-
-        <p>
-          Tabing Guhit is an informational and educational guide.
-          It does not guarantee employment, clients, income,
-          or job placement.
-        </p>
-
-        <p>
-          Currency conversions and earning estimates are
-          for informational purposes only.
-          Actual payments may differ because of exchange rates,
-          taxes, fees, unpaid time, and contract terms.
-        </p>
 
       </div>
 
-    </footer>
+    </section>
 
 
-  </div>
+    <!-- =================================================
+         SAFETY
+         ================================================= -->
+
+    <section class="safety-section">
+
+      <div class="container">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Protect yourself
+          </p>
+
+          <h2>
+            Know your value.
+          </h2>
+
+        </div>
 
 
-  <!-- =====================================================
-       APP JAVASCRIPT
-       ===================================================== -->
+        <div class="safety-grid">
 
-  <script src="app.js"></script>
+
+          <div class="safety-card">
+
+            <h3>
+              🚩 Never pay to get a job.
+            </h3>
+
+            <p>
+              A legitimate remote job should not require
+              a joining fee, recruitment fee, application fee,
+              or payment simply to be hired.
+            </p>
+
+            <strong>
+              Verify the employer independently.
+            </strong>
+
+          </div>
+
+
+          <div class="safety-card">
+
+            <h3>
+              Know your value.
+            </h3>
+
+            <p>
+              Don't automatically accept a low-ball offer
+              just because you need a sideline.
+            </p>
+
+            <strong>
+              Starting small is okay.
+              Undervaluing yourself is not.
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         UPSKILL
+         ================================================= -->
+
+    <section class="upskill-section">
+
+      <div class="container">
+
+        <div class="upskill-card">
+
+          <p class="eyebrow">
+            Keep learning
+          </p>
+
+          <h2>
+            Build skills while you explore.
+          </h2>
+
+          <p>
+            Explore free courses through Alison and
+            find opportunities to improve your knowledge.
+          </p>
+
+
+          <a
+            id="alisonCoursesLink"
+            class="secondary-button"
+            href="https://alison.com/certificate-courses?utm_source=alison_user&utm_medium=affiliate&utm_campaign=42404117"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Explore Free Courses
+          </a>
+
+
+          <p class="affiliate-note">
+
+            Alison is an external learning platform.
+            Tabing Guhit does not guarantee course outcomes,
+            employment, or income.
+
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =================================================
+         ABOUT & LEGAL
+         ================================================= -->
+
+    <section class="notice">
+
+      <div class="container">
+
+        <div class="notice-card">
+
+          <p class="eyebrow">
+            About & Legal
+          </p>
+
+          <h2>
+            Use Tabing Guhit thoughtfully.
+          </h2>
+
+          <p>
+            Tabing Guhit is an informational and educational
+            guide. It does not guarantee employment, clients,
+            income, job placement, or financial results.
+          </p>
+
+          <p>
+            Currency conversions and earning estimates are
+            planning estimates only. Actual payments may differ
+            because of exchange rates, taxes, fees, unpaid time,
+            and contract terms.
+          </p>
+
+
+          <label>
+
+            <input
+              type="checkbox"
+              id="legalAcknowledgement"
+            >
+
+            I understand and acknowledge.
+
+          </label>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+  </main>
+
+
+  <!-- =================================================
+       FOOTER
+       ================================================= -->
+
+  <footer class="site-footer">
+
+    <div class="container">
+
+      <p>
+        <strong>
+          TABING GUHIT
+        </strong>
+      </p>
+
+      <p>
+        A calm place to figure out your next move.
+      </p>
+
+      <p>
+        © 2026 Tabing Guhit.
+      </p>
+
+    </div>
+
+  </footer>
+
+
+</section>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script src="app.js"></script>
 
 
 </body>
