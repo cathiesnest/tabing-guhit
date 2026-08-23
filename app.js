@@ -1,62 +1,62 @@
+/* =========================================================
+   TABING GUHIT — APP.JS
+   Final Core JavaScript
+   Niche Finder + Rate Calculator + GA4
+   Login/Demo Session + Navigation Helpers
+   ========================================================= */
 
-// ==========================================
-// TABING GUHIT — APP.JS
-// Niche Finder + Rate Calculator + GA4 Tracking
-// ==========================================
 
-
-// ==========================================
-// GA4 EVENT TRACKING
-// ==========================================
+/* =========================================================
+   GA4 EVENT TRACKING
+   ========================================================= */
 
 function trackEvent(eventName, parameters = {}) {
-
   if (typeof gtag === "function") {
-
     gtag("event", eventName, parameters);
-
   }
-
 }
 
 
-// ==========================================
-// ELEMENTS
-// ==========================================
+/* =========================================================
+   SAFE DOM HELPERS
+   ========================================================= */
 
-const hourlyRateInput = document.getElementById("hourlyRate");
-const fromCurrencyInput = document.getElementById("fromCurrency");
-const toCurrencyInput = document.getElementById("toCurrency");
-
-const hoursPerDayInput = document.getElementById("hoursPerDay");
-const daysPerWeekInput = document.getElementById("daysPerWeek");
-const monthsPerYearInput = document.getElementById("monthsPerYear");
-
-const calculateButton = document.getElementById("calculateRate");
-const clearCalculatorButton = document.getElementById("clearCalculator");
-
-const resultsArea = document.getElementById("calculatorResults");
-
-const startAssessmentButton =
-  document.getElementById("startAssessment");
-
-const generateNicheButton =
-  document.getElementById("generateNiche");
-
-const clearAssessmentButton =
-  document.getElementById("clearAssessment");
-
-const nicheResults =
-  document.getElementById("nicheResults");
+function getElement(id) {
+  return document.getElementById(id);
+}
 
 
-// ==========================================
-// EXCHANGE RATES
-// Temporary planning rates
-// ==========================================
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const hourlyRateInput = getElement("hourlyRate");
+const fromCurrencyInput = getElement("fromCurrency");
+const toCurrencyInput = getElement("toCurrency");
+
+const hoursPerDayInput = getElement("hoursPerDay");
+const daysPerWeekInput = getElement("daysPerWeek");
+const monthsPerYearInput = getElement("monthsPerYear");
+
+const calculateButton = getElement("calculateRate");
+const clearCalculatorButton = getElement("clearCalculator");
+
+const resultsArea = getElement("calculatorResults");
+
+const startAssessmentButton = getElement("startAssessment");
+const generateNicheButton = getElement("generateNiche");
+const clearAssessmentButton = getElement("clearAssessment");
+
+const nicheResults = getElement("nicheResults");
+
+
+/* =========================================================
+   EXCHANGE RATES
+   Planning estimates only
+   Base = USD
+   ========================================================= */
 
 const exchangeRatesToUSD = {
-
   USD: 1,
   PHP: 60.83,
   CAD: 1.37,
@@ -68,43 +68,40 @@ const exchangeRatesToUSD = {
   SAR: 3.75,
   QAR: 3.64,
   JPY: 147
-
 };
 
 
-// ==========================================
-// CURRENCY CONVERSION
-// ==========================================
+/* =========================================================
+   CURRENCY CONVERSION
+   ========================================================= */
 
-function convertCurrency(
-  amount,
-  fromCurrency,
-  toCurrency
-) {
+function convertCurrency(amount, fromCurrency, toCurrency) {
 
-  const fromRate =
-    exchangeRatesToUSD[fromCurrency];
+  const fromRate = exchangeRatesToUSD[fromCurrency];
+  const toRate = exchangeRatesToUSD[toCurrency];
 
-  const toRate =
-    exchangeRatesToUSD[toCurrency];
-
-  if (!fromRate || !toRate) {
+  if (
+    !Number.isFinite(fromRate) ||
+    !Number.isFinite(toRate)
+  ) {
     return amount;
   }
 
-  const amountInUSD =
-    amount / fromRate;
+  const amountInUSD = amount / fromRate;
 
   return amountInUSD * toRate;
-
 }
 
 
-// ==========================================
-// MONEY FORMAT
-// ==========================================
+/* =========================================================
+   MONEY FORMAT
+   ========================================================= */
 
 function formatMoney(amount, currency) {
+
+  if (!Number.isFinite(amount)) {
+    return `${currency} 0.00`;
+  }
 
   try {
 
@@ -117,78 +114,77 @@ function formatMoney(amount, currency) {
       }
     ).format(amount);
 
-  } catch {
+  } catch (error) {
 
     return `${currency} ${amount.toFixed(2)}`;
 
   }
-
 }
 
 
-// ==========================================
-// RATE CALCULATOR
-// ==========================================
+/* =========================================================
+   RATE CALCULATOR
+   ========================================================= */
 
 function calculateRate() {
 
-  const hourlyRate =
-    Number(hourlyRateInput.value);
-
-  const fromCurrency =
-    fromCurrencyInput.value;
-
-  const toCurrency =
-    toCurrencyInput.value;
-
-  const hoursPerDay =
-    Number(hoursPerDayInput.value);
-
-  const daysPerWeek =
-    Number(daysPerWeekInput.value);
-
-  const monthsPerYear =
-    Number(monthsPerYearInput.value);
-
-
-  // Automatic average weeks per month
-  const weeksPerMonth = 4.33;
-
-
-  // Validation
-
   if (
-
-    !Number.isFinite(hourlyRate) ||
-
-    hourlyRate <= 0 ||
-
-    hoursPerDay <= 0 ||
-
-    daysPerWeek <= 0 ||
-
-    monthsPerYear <= 0
-
+    !hourlyRateInput ||
+    !fromCurrencyInput ||
+    !toCurrencyInput ||
+    !hoursPerDayInput ||
+    !daysPerWeekInput ||
+    !monthsPerYearInput ||
+    !resultsArea
   ) {
-
-    resultsArea.innerHTML = `
-
-      <p class="results-placeholder">
-
-        Please enter a valid hourly rate.
-
-      </p>
-
-    `;
-
     return;
-
   }
 
 
-  // ========================================
-  // GA4 — RATE CALCULATOR USED
-  // ========================================
+  const hourlyRate = Number(hourlyRateInput.value);
+
+  const fromCurrency = fromCurrencyInput.value;
+  const toCurrency = toCurrencyInput.value;
+
+  const hoursPerDay = Number(hoursPerDayInput.value);
+  const daysPerWeek = Number(daysPerWeekInput.value);
+  const monthsPerYear = Number(monthsPerYearInput.value);
+
+
+  /* -----------------------------------------
+     VALIDATION
+     ----------------------------------------- */
+
+  if (
+    !Number.isFinite(hourlyRate) ||
+    hourlyRate <= 0 ||
+    !Number.isFinite(hoursPerDay) ||
+    hoursPerDay <= 0 ||
+    !Number.isFinite(daysPerWeek) ||
+    daysPerWeek <= 0 ||
+    !Number.isFinite(monthsPerYear) ||
+    monthsPerYear <= 0
+  ) {
+
+    resultsArea.innerHTML = `
+      <div class="niche-result-card">
+        <h3>Almost there!</h3>
+
+        <p>
+          Please enter a valid hourly rate,
+          hours per day, days per week,
+          and working months per year.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  /* -----------------------------------------
+     GA4
+     ----------------------------------------- */
 
   trackEvent(
     "rate_calculated",
@@ -202,10 +198,13 @@ function calculateRate() {
   );
 
 
-  // Calculations
+  /* -----------------------------------------
+     CALCULATIONS
+     ----------------------------------------- */
 
-  const hourly =
-    hourlyRate;
+  const weeksPerMonth = 4.33;
+
+  const hourly = hourlyRate;
 
   const daily =
     hourlyRate *
@@ -225,56 +224,48 @@ function calculateRate() {
 
 
   const values = [
-
     ["Hourly", hourly],
     ["Daily", daily],
     ["Weekly", weekly],
     ["Monthly", monthly],
-    ["Yearly", yearly]
-
+    ["Annual", yearly]
   ];
 
 
+  /* -----------------------------------------
+     RESULTS
+     ----------------------------------------- */
+
   const rows = values
+    .map(function ([period, amount]) {
 
-    .map(
-      ([period, amount]) => {
+      const convertedAmount =
+        convertCurrency(
+          amount,
+          fromCurrency,
+          toCurrency
+        );
 
-        const convertedAmount =
-          convertCurrency(
-            amount,
-            fromCurrency,
-            toCurrency
-          );
+      return `
+        <tr>
+          <td>${period}</td>
 
+          <td>
+            ${formatMoney(
+              amount,
+              fromCurrency
+            )}
+          </td>
 
-        return `
-
-          <tr>
-
-            <td>${period}</td>
-
-            <td>
-              ${formatMoney(
-                amount,
-                fromCurrency
-              )}
-            </td>
-
-            <td>
-              ${formatMoney(
-                convertedAmount,
-                toCurrency
-              )}
-            </td>
-
-          </tr>
-
-        `;
-
-      }
-    )
-
+          <td>
+            ${formatMoney(
+              convertedAmount,
+              toCurrency
+            )}
+          </td>
+        </tr>
+      `;
+    })
     .join("");
 
 
@@ -283,27 +274,18 @@ function calculateRate() {
     <table class="results-table">
 
       <thead>
-
         <tr>
-
           <th>Period</th>
-
           <th>${fromCurrency}</th>
-
           <th>${toCurrency}</th>
-
         </tr>
-
       </thead>
 
       <tbody>
-
         ${rows}
-
       </tbody>
 
     </table>
-
 
     <p class="calculator-disclaimer">
 
@@ -312,23 +294,19 @@ function calculateRate() {
       This is a planning estimate only.
 
       Actual earnings may vary because of taxes,
-
       unpaid leave, platform fees,
-
       payment fees, exchange-rate changes,
-
       and contract terms.
 
     </p>
 
   `;
-
 }
 
 
-// ==========================================
-// CALCULATOR BUTTON
-// ==========================================
+/* =========================================================
+   CALCULATE BUTTON
+   ========================================================= */
 
 if (calculateButton) {
 
@@ -340,9 +318,10 @@ if (calculateButton) {
 }
 
 
-// ==========================================
-// CLEAR CALCULATOR
-// ==========================================
+/* =========================================================
+   CLEAR RATE CALCULATOR
+   ONE CLEAR BUTTON
+   ========================================================= */
 
 if (clearCalculatorButton) {
 
@@ -355,29 +334,45 @@ if (clearCalculatorButton) {
       );
 
 
-      hourlyRateInput.value = "";
+      if (hourlyRateInput) {
+        hourlyRateInput.value = "";
+      }
 
-      fromCurrencyInput.value = "USD";
+      if (fromCurrencyInput) {
+        fromCurrencyInput.value = "USD";
+      }
 
-      toCurrencyInput.value = "PHP";
+      if (toCurrencyInput) {
+        toCurrencyInput.value = "PHP";
+      }
 
-      hoursPerDayInput.value = "8";
+      if (hoursPerDayInput) {
+        hoursPerDayInput.value = "8";
+      }
 
-      daysPerWeekInput.value = "5";
+      if (daysPerWeekInput) {
+        daysPerWeekInput.value = "5";
+      }
 
-      monthsPerYearInput.value = "12";
+      if (monthsPerYearInput) {
+        monthsPerYearInput.value = "12";
+      }
 
 
-      resultsArea.innerHTML = `
+      if (resultsArea) {
 
-        <p class="results-placeholder">
+        resultsArea.innerHTML = `
 
-          Enter your hourly rate to see
-          your estimated earnings.
+          <p class="results-placeholder">
 
-        </p>
+            Enter your hourly rate to see
+            your estimated earnings.
 
-      `;
+          </p>
+
+        `;
+
+      }
 
     }
   );
@@ -385,9 +380,9 @@ if (clearCalculatorButton) {
 }
 
 
-// ==========================================
-// START / FIND MY NICHE BUTTON
-// ==========================================
+/* =========================================================
+   FIND MY NICHE
+   ========================================================= */
 
 if (startAssessmentButton) {
 
@@ -395,28 +390,20 @@ if (startAssessmentButton) {
     "click",
     function () {
 
-
-      // GA4 — ASSESSMENT STARTED
-
       trackEvent(
         "start_niche_assessment"
       );
 
 
       const assessment =
-        document.getElementById(
-          "nicheAssessment"
-        );
+        getElement("nicheAssessment");
 
 
       if (assessment) {
 
         assessment.scrollIntoView({
-
           behavior: "smooth",
-
           block: "start"
-
         });
 
       }
@@ -427,11 +414,15 @@ if (startAssessmentButton) {
 }
 
 
-// ==========================================
-// NICHE GENERATOR
-// ==========================================
+/* =========================================================
+   NICHE GENERATOR
+   ========================================================= */
 
 function generateNiche() {
+
+  if (!nicheResults) {
+    return;
+  }
 
 
   const skill =
@@ -460,20 +451,16 @@ function generateNiche() {
     );
 
 
-  // Make sure every question is answered
+  /* -----------------------------------------
+     VALIDATION
+     ----------------------------------------- */
 
   if (
-
     !skill ||
-
     !interest ||
-
     !time ||
-
     !goal ||
-
     !startingPoint
-
   ) {
 
     nicheResults.hidden = false;
@@ -497,21 +484,17 @@ function generateNiche() {
     `;
 
     nicheResults.scrollIntoView({
-
       behavior: "smooth",
-
       block: "center"
-
     });
 
     return;
-
   }
 
 
-  // ========================================
-  // GA4 — NICHE RESULTS GENERATED
-  // ========================================
+  /* -----------------------------------------
+     GA4
+     ----------------------------------------- */
 
   trackEvent(
     "niche_results_generated",
@@ -525,130 +508,125 @@ function generateNiche() {
   );
 
 
-  // ========================================
-  // POSSIBLE NICHE SUGGESTIONS
-  // ========================================
+  /* -----------------------------------------
+     NICHE SUGGESTIONS
+     ----------------------------------------- */
 
   let niches = [];
-
   let explanation = "";
 
 
-  // ADMIN
+  switch (skill.value) {
 
-  if (skill.value === "admin") {
+    case "admin":
 
-    niches.push(
-      "Virtual Assistant",
-      "Administrative Assistant",
-      "Calendar & Inbox Support"
-    );
+      niches.push(
+        "Virtual Assistant",
+        "Administrative Assistant",
+        "Calendar & Inbox Support"
+      );
 
-    explanation =
-      "Your organizing skills can translate well into remote administrative and virtual support work.";
+      explanation =
+        "Your organizing skills can translate well into remote administrative and virtual support work.";
 
-  }
-
-
-  // CUSTOMER SERVICE
-
-  else if (skill.value === "customer") {
-
-    niches.push(
-      "Customer Support Specialist",
-      "Chat Support",
-      "Client Success Assistant"
-    );
-
-    explanation =
-      "Your customer service experience can be useful for remote support and client-facing roles.";
-
-  }
+      break;
 
 
-  // WRITING
+    case "customer":
 
-  else if (skill.value === "writing") {
+      niches.push(
+        "Customer Support Specialist",
+        "Chat Support",
+        "Client Success Assistant"
+      );
 
-    niches.push(
-      "Content Writer",
-      "Copywriting Assistant",
-      "Social Media Assistant"
-    );
+      explanation =
+        "Your customer service experience can be useful for remote support and client-facing roles.";
 
-    explanation =
-      "Your communication skills may fit writing, content, and social media support.";
-
-  }
+      break;
 
 
-  // SALES
+    case "writing":
 
-  else if (skill.value === "sales") {
+      niches.push(
+        "Content Writer",
+        "Copywriting Assistant",
+        "Social Media Assistant"
+      );
 
-    niches.push(
-      "Appointment Setter",
-      "Lead Generation Assistant",
-      "Sales Support Specialist"
-    );
+      explanation =
+        "Your communication skills may fit writing, content, and social media support.";
 
-    explanation =
-      "Your sales skills can translate into lead generation, appointment setting, and sales support.";
-
-  }
+      break;
 
 
-  // CREATIVE
+    case "sales":
 
-  else if (skill.value === "creative") {
+      niches.push(
+        "Appointment Setter",
+        "Lead Generation Assistant",
+        "Sales Support Specialist"
+      );
 
-    niches.push(
-      "Canva Designer",
-      "Social Media Content Creator",
-      "Digital Product Creator"
-    );
+      explanation =
+        "Your sales skills can translate into lead generation, appointment setting, and sales support.";
 
-    explanation =
-      "Your creative skills may fit visual content, social media, and digital products.";
-
-  }
+      break;
 
 
-  // TEACHING
+    case "creative":
 
-  else if (skill.value === "teaching") {
+      niches.push(
+        "Canva Designer",
+        "Social Media Content Creator",
+        "Digital Product Creator"
+      );
 
-    niches.push(
-      "Online Tutor",
-      "Online Coach",
-      "Learning Support Assistant"
-    );
+      explanation =
+        "Your creative skills may fit visual content, social media, and digital products.";
 
-    explanation =
-      "Your teaching and coaching strengths may fit tutoring, training, and learning support.";
-
-  }
+      break;
 
 
-  // TECHNOLOGY
+    case "teaching":
 
-  else if (skill.value === "tech") {
+      niches.push(
+        "Online Tutor",
+        "Online Coach",
+        "Learning Support Assistant"
+      );
 
-    niches.push(
-      "AI Assistant",
-      "No-Code Automation Assistant",
-      "Technical Virtual Assistant"
-    );
+      explanation =
+        "Your teaching and coaching strengths may fit tutoring, training, and learning support.";
 
-    explanation =
-      "Your technology interests may fit AI-assisted services, automation, and technical support.";
+      break;
+
+
+    case "tech":
+
+      niches.push(
+        "AI Assistant",
+        "No-Code Automation Assistant",
+        "Technical Virtual Assistant"
+      );
+
+      explanation =
+        "Your technology interests may fit AI-assisted services, automation, and technical support.";
+
+      break;
+
+
+    default:
+
+      explanation =
+        "Your answers can help point you toward a practical starting direction.";
 
   }
 
 
-  // ========================================
-  // INTEREST-BASED REFINEMENT
-  // ========================================
+  /* -----------------------------------------
+     INTEREST REFINEMENT
+     ----------------------------------------- */
 
   if (interest.value === "creative") {
 
@@ -683,23 +661,24 @@ function generateNiche() {
   }
 
 
-  // Remove duplicates
+  /* -----------------------------------------
+     REMOVE DUPLICATES
+     ----------------------------------------- */
 
-  niches =
-    [...new Set(niches)];
-
-
-  // Limit to five suggestions
-
-  niches =
-    niches.slice(0, 5);
+  niches = [
+    ...new Set(niches)
+  ];
 
 
-  // ========================================
-  // TIME MESSAGE
-  // ========================================
+  niches = niches.slice(0, 5);
+
+
+  /* -----------------------------------------
+     TIME MESSAGE
+     ----------------------------------------- */
 
   let timeMessage = "";
+
 
   if (time.value === "small") {
 
@@ -730,33 +709,28 @@ function generateNiche() {
   }
 
 
-  // ========================================
-  // STARTING POINT MESSAGE
-  // ========================================
+  /* -----------------------------------------
+     STARTING POINT MESSAGE
+     ----------------------------------------- */
 
   let startingMessage = "";
 
-  if (
-    startingPoint.value === "experienced"
-  ) {
+
+  if (startingPoint.value === "experienced") {
 
     startingMessage =
       "You may be ready to package an existing skill into a service.";
 
   }
 
-  else if (
-    startingPoint.value === "experience"
-  ) {
+  else if (startingPoint.value === "experience") {
 
     startingMessage =
       "Your existing experience can help you choose a direction without starting completely from zero.";
 
   }
 
-  else if (
-    startingPoint.value === "beginner"
-  ) {
+  else if (startingPoint.value === "beginner") {
 
     startingMessage =
       "You can start with one beginner-friendly skill and build from there.";
@@ -771,12 +745,11 @@ function generateNiche() {
   }
 
 
-  // ========================================
-  // DISPLAY RESULTS
-  // ========================================
+  /* -----------------------------------------
+     DISPLAY RESULTS
+     ----------------------------------------- */
 
   nicheResults.hidden = false;
-
 
   nicheResults.innerHTML = `
 
@@ -794,7 +767,6 @@ function generateNiche() {
         ${explanation}
       </p>
 
-
       <h4>
         Possible sideline niches:
       </h4>
@@ -802,14 +774,12 @@ function generateNiche() {
       <ul>
 
         ${niches
-          .map(
-            niche =>
-              `<li>${niche}</li>`
-          )
+          .map(function (niche) {
+            return `<li>${niche}</li>`;
+          })
           .join("")}
 
       </ul>
-
 
       <p>
         <strong>Time:</strong>
@@ -820,7 +790,6 @@ function generateNiche() {
         <strong>Starting point:</strong>
         ${startingMessage}
       </p>
-
 
       <div class="niche-next-step">
 
@@ -834,7 +803,6 @@ function generateNiche() {
         or equipment.
 
       </div>
-
 
       <p class="calculator-link-text">
 
@@ -854,19 +822,16 @@ function generateNiche() {
 
 
   nicheResults.scrollIntoView({
-
     behavior: "smooth",
-
     block: "start"
-
   });
 
 }
 
 
-// ==========================================
-// SHOW NICHE RESULTS
-// ==========================================
+/* =========================================================
+   SHOW NICHE RESULTS BUTTON
+   ========================================================= */
 
 if (generateNicheButton) {
 
@@ -878,9 +843,10 @@ if (generateNicheButton) {
 }
 
 
-// ==========================================
-// CLEAR NICHE ASSESSMENT
-// ==========================================
+/* =========================================================
+   CLEAR NICHE ASSESSMENT
+   ONE CLEAR BUTTON
+   ========================================================= */
 
 if (clearAssessmentButton) {
 
@@ -888,23 +854,28 @@ if (clearAssessmentButton) {
     "click",
     function () {
 
-
       trackEvent(
         "assessment_cleared"
       );
 
 
-      document
-        .querySelectorAll(
-          '#nicheAssessment input[type="radio"]'
-        )
-        .forEach(
-          function (input) {
+      const assessment =
+        getElement("nicheAssessment");
+
+
+      if (assessment) {
+
+        assessment
+          .querySelectorAll(
+            'input[type="radio"]'
+          )
+          .forEach(function (input) {
 
             input.checked = false;
 
-          }
-        );
+          });
+
+      }
 
 
       if (nicheResults) {
@@ -916,20 +887,11 @@ if (clearAssessmentButton) {
       }
 
 
-      const assessment =
-        document.getElementById(
-          "nicheAssessment"
-        );
-
-
       if (assessment) {
 
         assessment.scrollIntoView({
-
           behavior: "smooth",
-
           block: "start"
-
         });
 
       }
@@ -940,9 +902,9 @@ if (clearAssessmentButton) {
 }
 
 
-// ==========================================
-// INITIAL CALCULATOR STATE
-// ==========================================
+/* =========================================================
+   INITIAL CALCULATOR STATE
+   ========================================================= */
 
 if (resultsArea) {
 
@@ -960,14 +922,13 @@ if (resultsArea) {
 }
 
 
-// ==========================================
-// ALISON CLICK TRACKING
-// ==========================================
+/* =========================================================
+   ALISON CLICK TRACKING
+   ========================================================= */
 
 const alisonLink =
-  document.querySelector(
-    'a[href*="alison.com"]'
-  );
+  getElement("alisonCoursesLink");
+
 
 if (alisonLink) {
 
@@ -987,3 +948,173 @@ if (alisonLink) {
 
 }
 
+
+/* =========================================================
+   DEMO SESSION HELPERS
+   These are intentionally NOT real authentication.
+   They prepare the app for the expanded HTML.
+   ========================================================= */
+
+const SESSION_KEY =
+  "tabingGuhitSession";
+
+
+function getSession() {
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        SESSION_KEY
+      );
+
+    if (!saved) {
+      return null;
+    }
+
+    return JSON.parse(saved);
+
+  } catch (error) {
+
+    return null;
+
+  }
+
+}
+
+
+function saveSession(user) {
+
+  try {
+
+    localStorage.setItem(
+      SESSION_KEY,
+      JSON.stringify(user)
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Unable to save Tabing Guhit session."
+    );
+
+  }
+
+}
+
+
+function clearSession() {
+
+  try {
+
+    localStorage.removeItem(
+      SESSION_KEY
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Unable to clear Tabing Guhit session."
+    );
+
+  }
+
+}
+
+
+function createDemoSession() {
+
+  const demoUser = {
+
+    id: "demo-user",
+
+    name: "Demo User",
+
+    email: "demo@tabingguhit.com",
+
+    demo: true
+
+  };
+
+
+  saveSession(demoUser);
+
+  trackEvent(
+    "demo_login"
+  );
+
+
+  return demoUser;
+
+}
+
+
+/* =========================================================
+   LOGOUT HELPER
+   ========================================================= */
+
+function logoutUser() {
+
+  clearSession();
+
+  trackEvent(
+    "logout"
+  );
+
+
+  /*
+     The final index.html will provide
+     the login/welcome screen.
+
+     Until then, simply reload the page.
+  */
+
+  window.location.reload();
+
+}
+
+
+/* =========================================================
+   EXPOSE SAFE APP FUNCTIONS
+   Allows the expanded HTML to use them.
+   ========================================================= */
+
+window.TabingGuhit = {
+
+  trackEvent,
+
+  calculateRate,
+
+  generateNiche,
+
+  convertCurrency,
+
+  formatMoney,
+
+  getSession,
+
+  saveSession,
+
+  clearSession,
+
+  createDemoSession,
+
+  logoutUser
+
+};
+
+
+/* =========================================================
+   READY
+   ========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+
+    trackEvent(
+      "tabing_guhit_ready"
+    );
+
+  }
+);
