@@ -1,4 +1,3 @@
-```css
 /* ================================
    TABING GUHIT
    Neutral Coffee & Cream Theme
@@ -119,6 +118,18 @@ section {
   font-size: 0.85rem;
 }
 
+/* Header coffee icon support */
+
+.header-coffee {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  color: #5C4630;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ================================
    HERO
 ================================ */
@@ -135,6 +146,8 @@ section {
 
 .hero-content {
   max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 
@@ -235,18 +248,20 @@ section {
   background: var(--cream);
 }
 
+/*
+   Center the two feature boxes as a balanced pair.
+   The content and functionality are unchanged.
+*/
+
 .feature-grid {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
-  width: 100%;
+  width: min(850px, 100%);
+  margin: 0 auto;
 }
 
 .feature-card {
-  flex: 0 1 350px;
-  width: 350px;
-  max-width: 350px;
   padding: 26px;
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -510,21 +525,54 @@ section {
 }
 
 /* ================================
+   SHARE & REFER
+================================ */
+
+#copyLinkConfirmation {
+  margin-top: 18px;
+  color: var(--coffee);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ================================
    FOOTER
 ================================ */
 
 .site-footer {
-  padding: 45px 0;
+  padding: 55px 0;
   background: var(--coffee-dark);
   color: #f5eee5;
   text-align: center;
 }
 
+.site-footer .container {
+  text-align: center;
+}
+
+.site-footer p {
+  max-width: 750px;
+  margin: 10px auto;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.site-footer strong {
+  letter-spacing: 0.08em;
+  font-size: 1.15rem;
+}
+
+/* ================================
+   FOOTER COFFEE BUTTON
+================================ */
+
 .footer-coffee {
-  display: inline-block;
-  margin-bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 14px;
   color: #f5eee5;
-  font-size: 3.2rem;
+  font-size: 3.4rem;
   line-height: 1;
   text-decoration: none;
   cursor: pointer;
@@ -534,24 +582,14 @@ section {
 }
 
 .footer-coffee:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   opacity: 0.85;
 }
 
-.site-footer p {
-  max-width: 750px;
-  margin: 8px auto;
-  font-size: 1rem;
-  opacity: 0.95;
-}
-
-.site-footer p:first-of-type strong {
-  font-size: 1.15rem;
-  letter-spacing: 0.08em;
-}
-
-.site-footer strong {
-  letter-spacing: 0.08em;
+.footer-coffee:focus {
+  outline: 2px solid #f5eee5;
+  outline-offset: 5px;
+  border-radius: 6px;
 }
 
 /* ================================
@@ -575,13 +613,7 @@ section {
   }
 
   .feature-grid {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .feature-card {
     width: 100%;
-    max-width: 100%;
   }
 
   .assessment-card,
@@ -604,15 +636,14 @@ section {
   }
 
   .footer-coffee {
-    font-size: 3.4rem;
+    font-size: 3rem;
   }
 
   .site-footer p {
     font-size: 0.95rem;
   }
 
-  .site-footer p:first-of-type strong {
-    font-size: 1.15rem;
+  .site-footer strong {
+    font-size: 1.1rem;
   }
 }
-```
