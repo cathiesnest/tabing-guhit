@@ -520,11 +520,34 @@ section {
   text-align: center;
 }
 
+.footer-coffee {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #f5eee5;
+  font-size: 3.2rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.footer-coffee:hover {
+  transform: translateY(-2px);
+  opacity: 0.85;
+}
+
 .site-footer p {
   max-width: 750px;
   margin: 8px auto;
-  font-size: 0.85rem;
-  opacity: 0.9;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+.site-footer p:first-of-type strong {
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
 }
 
 .site-footer strong {
@@ -578,6 +601,18 @@ section {
   .results-table td {
     padding: 10px;
     font-size: 0.88rem;
+  }
+
+  .footer-coffee {
+    font-size: 3.4rem;
+  }
+
+  .site-footer p {
+    font-size: 0.95rem;
+  }
+
+  .site-footer p:first-of-type strong {
+    font-size: 1.15rem;
   }
 }
 ```
