@@ -50,11 +50,11 @@
 
 
 <!-- =====================================================
-     WELCOME / LOGIN
+     WELCOME / DEMO WALKTHROUGH
      ===================================================== -->
 
 <section
-  id="loginScreen"
+  id="welcomeScreen"
   class="hero"
 >
 
@@ -75,114 +75,6 @@
     </p>
 
 
-    <div class="assessment-card">
-
-      <div class="section-heading">
-
-        <p class="eyebrow">
-          Welcome to Tabing Guhit
-        </p>
-
-        <h2>
-          Your next move starts here.
-        </h2>
-
-        <p>
-          Log in to continue, create a local demo profile,
-          or explore the app without an account.
-        </p>
-
-      </div>
-
-
-      <!-- AUTH MESSAGE -->
-
-      <div
-        id="authMessage"
-        class="auth-message"
-        hidden
-      ></div>
-
-
-      <!-- LOGIN FORM -->
-
-      <form id="loginForm">
-
-        <label>
-
-          Email
-
-          <input
-            id="loginEmail"
-            type="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-            required
-          >
-
-        </label>
-
-
-        <label>
-
-          Password
-
-          <input
-            id="loginPassword"
-            type="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-            required
-          >
-
-        </label>
-
-
-        <button
-          id="loginButton"
-          class="primary-button"
-          type="submit"
-        >
-          Log In
-        </button>
-
-      </form>
-
-
-      <div class="calculator-actions">
-
-        <button
-          id="createAccountButton"
-          class="secondary-button"
-          type="button"
-        >
-          Create Account
-        </button>
-
-
-        <button
-          id="continueDemo"
-          class="secondary-button"
-          type="button"
-        >
-          Continue as Demo
-        </button>
-
-      </div>
-
-
-      <p class="small-note">
-
-        Demo/local access only.
-
-        Tabing Guhit does not currently provide
-        secure production authentication.
-
-      </p>
-
-    </div>
-
-
     <!-- =================================================
          DEMO WALKTHROUGH
          ================================================= -->
@@ -199,8 +91,7 @@
 
       <p>
         Watch a short walkthrough to see how to find your
-        niche, calculate your rate, prepare your work tools,
-        and use Tabing Guhit.
+        niche, calculate your rate, and use Tabing Guhit.
       </p>
 
 
@@ -257,7 +148,6 @@
 
 <section
   id="appDashboard"
-  hidden
 >
 
 
@@ -281,15 +171,6 @@
 
       </div>
 
-
-      <button
-        id="logoutButton"
-        class="secondary-button"
-        type="button"
-      >
-        Log Out
-      </button>
-
     </div>
 
   </header>
@@ -307,28 +188,17 @@
       <div class="container hero-content">
 
         <p class="eyebrow">
-          Welcome back
+          Welcome to Tabing Guhit
         </p>
 
         <h1>
-          Hello, <span data-user-name>there</span>. ❤️
+          Your next move starts here. ❤️
         </h1>
 
         <p class="hero-text">
           Use Tabing Guhit to explore your skills,
           understand your rate, and prepare for your
           next opportunity.
-        </p>
-
-
-        <p class="small-note">
-
-          Signed in as:
-
-          <strong data-user-email>
-            —
-          </strong>
-
         </p>
 
       </div>
@@ -388,8 +258,8 @@
           </h2>
 
           <p>
-            Explore your possible direction, understand
-            your value, and prepare your work tools.
+            Explore your possible direction and understand
+            your value.
           </p>
 
         </div>
@@ -445,24 +315,6 @@
             >
               Calculate My Rate
             </a>
-
-          </div>
-
-
-          <div class="feature-card">
-
-            <div class="feature-number">
-              03
-            </div>
-
-            <h3>
-              Prepare for Work
-            </h3>
-
-            <p>
-              Use your profile, portfolio, CV, cover letter,
-              invoice, and other practical tools.
-            </p>
 
           </div>
 
@@ -1151,233 +1003,6 @@
             </p>
 
           </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         JOBS
-         ================================================= -->
-
-    <section class="features">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">
-            Explore opportunities
-          </p>
-
-          <h2>
-            Jobs
-          </h2>
-
-          <p>
-            Keep your existing job-search tools here.
-            This section is reserved for your current
-            Jobs feature.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         DIGITAL PORTFOLIO
-         ================================================= -->
-
-    <section class="features">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">
-            Show your work
-          </p>
-
-          <h2>
-            Digital Portfolio
-          </h2>
-
-          <p>
-            Your portfolio area can contain your photo,
-            contact information, PDF, copy link, and share
-            functions.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         CV + COVER LETTER
-         ================================================= -->
-
-    <section class="features">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">
-            Prepare to apply
-          </p>
-
-          <h2>
-            CV + Cover Letter
-          </h2>
-
-          <p>
-            Keep your existing CV and cover-letter tools
-            available from the dashboard.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         MONEY MATTERS
-         ================================================= -->
-
-    <section class="calculator-section">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">
-            Money Matters
-          </p>
-
-          <h2>
-            Plan your money.
-          </h2>
-
-          <p>
-            Your budget calculator can live here.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         TIME ZONE
-         ================================================= -->
-
-    <section class="features">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">
-            Work globally
-          </p>
-
-          <h2>
-            Time Zone
-          </h2>
-
-          <p>
-            Your timezone conversion tool can live here.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         INVOICE
-         ================================================= -->
-
-    <section class="calculator-section">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">
-            Get paid professionally
-          </p>
-
-          <h2>
-            Invoice
-          </h2>
-
-          <p>
-            Your invoice builder can live here with
-            additional work and overtime support.
-          </p>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- =================================================
-         SETTINGS & PROFILE
-         ================================================= -->
-
-    <section class="features">
-
-      <div class="container">
-
-        <div class="section-heading">
-
-          <p class="eyebrow">
-            Your profile
-          </p>
-
-          <h2>
-            Settings & Profile
-          </h2>
-
-          <p>
-            Manage your name, email, contact information,
-            location, profile photo, and preferences.
-          </p>
-
-
-          <p class="small-note">
-
-            <label>
-
-              <input
-                type="checkbox"
-                id="careerUpdates"
-              >
-
-              Yes, I'd like to receive useful career,
-              work and money updates from Tabing Guhit.
-
-            </label>
-
-          </p>
 
         </div>
 
