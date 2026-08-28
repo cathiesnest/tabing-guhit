@@ -238,11 +238,14 @@ section {
 .feature-grid {
   display: flex;
   justify-content: center;
+  align-items: stretch;
   gap: 20px;
+  width: 100%;
 }
 
 .feature-card {
-  width: 100%;
+  flex: 0 1 350px;
+  width: 350px;
   max-width: 350px;
   padding: 26px;
   border: 1px solid var(--border);
@@ -554,6 +557,7 @@ section {
   }
 
   .feature-card {
+    width: 100%;
     max-width: 100%;
   }
 
