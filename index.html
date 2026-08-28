@@ -1073,6 +1073,54 @@ content="Tabing Guhit helps you discover possible work paths, understand your ra
 
 
 <!-- =================================================
+     SHARE & REFER
+     ================================================= -->
+
+<section class="upskill-section">
+
+  <div class="container">
+
+    <div class="upskill-card">
+
+      <p class="eyebrow">
+        Share & Refer
+      </p>
+
+      <h2>
+        Share Tabing Guhit.
+      </h2>
+
+      <p>
+        Know someone who may find this helpful?
+        Share Tabing Guhit with them.
+      </p>
+
+
+      <button
+        id="copyLinkButton"
+        class="secondary-button"
+        type="button"
+        data-copy-link="https://cathiesnest.github.io/tabing-guhit/"
+      >
+        Copy Link Here
+      </button>
+
+
+      <p
+        id="copyLinkConfirmation"
+        hidden
+      >
+        ☕ 🤎 Link Copied Successfully! 🎉
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =================================================
      ABOUT & LEGAL
      ================================================= -->
 
@@ -1150,6 +1198,58 @@ content="Tabing Guhit helps you discover possible work paths, understand your ra
   </footer>
 
 </section>
+
+<!-- =====================================================
+     SHARE & REFER COPY FUNCTION
+     ===================================================== -->
+
+<script>
+
+  const copyLinkButton =
+    document.getElementById("copyLinkButton");
+
+  const copyLinkConfirmation =
+    document.getElementById("copyLinkConfirmation");
+
+
+  if (copyLinkButton) {
+
+    copyLinkButton.addEventListener("click", async function () {
+
+      const link =
+        this.getAttribute("data-copy-link");
+
+
+      try {
+
+        await navigator.clipboard.writeText(link);
+
+        copyLinkConfirmation.hidden = false;
+
+      } catch (error) {
+
+        const temporaryInput =
+          document.createElement("textarea");
+
+        temporaryInput.value = link;
+
+        document.body.appendChild(temporaryInput);
+
+        temporaryInput.select();
+
+        document.execCommand("copy");
+
+        temporaryInput.remove();
+
+        copyLinkConfirmation.hidden = false;
+
+      }
+
+    });
+
+  }
+
+</script>
 
 <!-- =====================================================
      JAVASCRIPT
