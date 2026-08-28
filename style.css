@@ -236,10 +236,9 @@ background: var(--cream);
 
 .feature-grid {
 display: grid;
-grid-template-columns: repeat(2, 1fr);
+grid-template-columns: repeat(3, 1fr);
 gap: 20px;
-max-width: 850px;
-margin: 0 auto;
+justify-content: center;
 }
 
 .feature-card {
@@ -516,14 +515,28 @@ color: #f5eee5;
 text-align: center;
 }
 
+.footer-coffee {
+display: inline-block;
+margin-bottom: 10px;
+font-size: 2.2rem;
+text-decoration: none;
+cursor: pointer;
+transition: transform 0.2s ease;
+}
+
+.footer-coffee:hover {
+transform: translateY(-2px);
+}
+
 .site-footer p {
 max-width: 750px;
-margin: 8px auto;
-font-size: 0.85rem;
+margin: 9px auto;
+font-size: 0.95rem;
 opacity: 0.9;
 }
 
 .site-footer strong {
+font-size: 1.05rem;
 letter-spacing: 0.08em;
 }
 
